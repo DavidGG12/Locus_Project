@@ -1,38 +1,55 @@
 <!DOCTYPE html>
-<html lang="es"></html>
+<html lang="es">
 <head>
 	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Inicio de Sesión</title>
-	<link rel="stylesheet" type="text/css" href="css/estilos.css">
+	<link rel="stylesheet" type="text/css" href="CSS/estilosnv.css">
+
 </head>
 <body>
-		<form class="form" method="post" action="login.php">
+
+	<header>
+		<div class="back">
+			<div class="menu container">
+				<a href="#" class="logo">logito</a>
+				<input type="checkbox" id="menu">
+				<label for="menu">
+					<img src="imagenes/menu.jpg" class="menu-icono" alt="">
+				</label>
+				<nav class="navbar">
+					<ul>
+						<li><a href="#">Inicio</a></li>
+						<li><a href="sesion.html">Iniciar Sesión</a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</header>
+
+	<div class="flex-container">
+		<form class="form" method="form" action="login.php">
 			<h2 class="form__title">Inicia Sesión</h2>
 				<p class="form__paragraph">¿Aún no tienes una cuenta? <a href="registro.html" class="form__link">Registrate aquí</a></p>
 
 
 			<div class="form__container">
-				<!--
+
 				<div class="form__group">
-					<input type="text" class="form__input" id="name" placeholder=" ">
-					<label for="name" class="form__label">Nombre:</label>
-					<span class="form__line"></span>
-				</div>
-				-->
-				<div class="form__group">
-					<input type="text" class="form__input" id="user" placeholder=" " name="user_login">
+					<input type="text" name="user_login" class="form__input" id="user" placeholder=" " required>
 					<label for="user" class="form__label">Usuario:</label>
 					<span class="form__line"></span>
 				</div>
 
 				<div class="form__group">
-					<input type="password" class="form__input" id="password" placeholder=" " name="password">
+					<input type="password" name="password" class="form__input" id="password" placeholder=" " required>
 					<label for="password" class="form__label">Contraseña:</label>
 					<span class="form__line"></span>
 				</div>
-				<input type="submit" class="form__submit" value="Entrar" name="login">
+				<input type="submit" class="form__submit" value="Entrar" name="login" required>
 			</div>
 		</form>
+	</div>
 </body>
 </html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es"></html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Inicio de Sesión</title>
+	<link rel="stylesheet" type="text/css" href="css/estilos.css">
+</head>
+<body>
+		<form class="form" method="post" action="login.php">
+			<h2 class="form__title">Inicia Sesión</h2>
+				<p class="form__paragraph">¿Aún no tienes una cuenta? <a href="registro.html" class="form__link">Registrate aquí</a></p>
+
+
+			<div class="form__container">
+				<!--
+				<div class="form__group">
+					<input type="text" class="form__input" id="name" placeholder=" ">
+					<label for="name" class="form__label">Nombre:</label>
+					<span class="form__line"></span>
+				</div>
+				-->
+				<div class="form__group">
+					<input type="text" class="form__input" id="user" placeholder=" " name="user_login">
+					<label for="user" class="form__label">Usuario:</label>
+					<span class="form__line"></span>
+				</div>
+
+				<div class="form__group">
+					<input type="password" class="form__input" id="password" placeholder=" " name="password">
+					<label for="password" class="form__label">Contraseña:</label>
+					<span class="form__line"></span>
+				</div>
+				<input type="submit" class="form__submit" value="Entrar" name="login">
+			</div>
+		</form>
+</body>
+</html>

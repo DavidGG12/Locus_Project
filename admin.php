@@ -8,7 +8,7 @@
 	<!--<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 	
 -->
-<style>
+	<style>
 	.formularioId{
 		display: none;
 	}
@@ -61,30 +61,37 @@
 		<button class="btn-click" onclick="mostrarFormulario('form2')">Datos de usuarios</button>
 		<button class="btn-click" onclick="mostrarFormulario('form3')">Datos de colaboradores</button>
 	</div>
-	<p>lol</p>
 	
 	<div class="tabla-container">	
 		<div id="form1" class="admin-container">
 			<h3>Datos de juegos</h3>
 
 			<?php
-				require 'connection.php';
+				require 'resources.php';
 				$con = connection();
-				
+
 				// Obtener los datos de la tabla
-				$sql = "SELECT * FROM videogames";
+				$sql = "SELECT id_game, title, subtitle, description_game, cover_image, version, storage_game, PFName, DName, CName from videogames
+							INNER JOIN platform on videogames.platform_games = platform.id_platform
+							INNER JOIN developer on videogames.developer_games = developer.id_developer
+							INNER JOIN classificaton on videogames.classification_games = classificaton.id_Classification";
 				$result = $con->query($sql);
-						
+
 				if ($result->num_rows > 0) 
 				{
 				// Imprimir la tabla HTML
 					echo "<table>";
 					echo "<tr>";
 					echo "<th>ID</th>";
-					echo "<th>Nombre</th>";
-					echo "<th>Apellidos</th>";
-					echo "<th>Matricula</th>";
-					echo "<th>Carrera</th>";
+					echo "<th>COVER</th>";
+					echo "<th>TITLE</th>";
+					echo "<th>SUBTITLE</th>";
+					echo "<th>DESCRIPTION</th>";
+					echo "<th>VERSION</th>";
+					echo "<th>STORAGE</th>";
+					echo "<th>PLATFORM</th>";
+					echo "<th>DEVELOPER</th>";
+					echo "<th>CLASSIFICATION</th>";
 					echo "<th>Opciones</th>";
 					echo "<th>Opciones</th>";
 					echo "<th>Opciones</th>";
@@ -94,11 +101,16 @@
 					while ($row = $result->fetch_assoc()) 
 					{
 						echo "<tr>";
-						echo "<td>" . $row["id_cre"] . "</td>";
-						echo "<td>" . $row["nombre"] . "</td>";
-						echo "<td>" . $row["apellidos"] . "</td>";
-						echo "<td>" . $row["matricula"] . "</td>";
-						echo "<td>" . $row["carrera"] . "</td>";
+						echo "<td>" . $row["id_game"] . "</td>";
+						echo "<td><img src = ' data:image/jpg; base64,". base64_encode($row['cover_image']) . "' height = 120, width = 100></img></td>";
+						echo "<td>" . $row["title"] . "</td>";
+						echo "<td>" . $row["subtitle"] . "</td>";
+						echo "<td>" . $row["description_game"] . "</td>";
+						echo "<td>" . $row["version"] . "</td>";
+						echo "<td>" . $row["storage_game"] . "</td>";
+						echo "<td>" . $row["PFName"] . "</td>";
+						echo "<td>" . $row["DName"] . "</td>";
+						echo "<td>" . $row["CName"] . "</td>";
 						echo '<td><button type="button">Actualizar</button></td>';
 						echo '<td><button type="button">Eliminar</button></td>';
 						echo '<td><button type="button">Añadir</button></td>';

@@ -1,0 +1,209 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@300;400;700&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+}
+
+body{
+    background: linear-gradient(
+        90deg, 
+        #0a7dc0 25%,
+        #A0EBCF 73%
+    );
+    font-family: 'Jost', sans-serif;
+}
+
+.container{
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.back{
+    padding: 32px 0;
+    background-color: #082b3e;
+}
+
+.menu{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+}
+
+.logo{
+    font-size: 24px;
+    color: aliceblue;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.buscar input[type="search"]{
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+    width: 300px;
+    font-family: 'Jost', sans-serif;
+}
+
+.menu .navbar ul li{
+    position: relative;
+    float: left;
+}
+
+.menu .navbar ul li a{
+    font-size: 18px;
+    padding: 20px;
+    color: #ffffff;
+    display: block;
+}
+
+.menu .navbar ul li a:hover{
+    color: #A0EBCF;
+}
+
+#menu{
+    display: none;
+}
+
+.menu-icono{
+    width: 25px;
+}
+
+.menu-icono-p{
+    width: 80px;
+}
+
+.menu label{
+    cursor: pointer;
+    display: none;
+}
+
+
+/*Botones de js*/
+.btn-click-container{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.btn-click-container h1{
+    font-size: 30px;
+    font-family: 'Jost', sans-serif;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.btn-click-container button{
+    font-family: 'Jost', sans-serif;
+    border: none;
+    color: rgb(0, 0, 0);
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+/*Tablas*/
+.tabla-container .admin-container {
+    display: none;
+    min-height: 100vh;
+    /*background-color: #f1f1f1;*/
+    padding-top: 10px;
+}
+
+.tabla-container .admin-container{
+    text-align: center;
+}
+
+.tabla-container .admin-container table { 
+    border: #082b3e 2px solid;
+    width: 50%;
+    border-collapse: collapse;
+    background-color:#f1f1f1;
+    margin: 25px auto;
+    padding-bottom: 20px;
+}
+
+.admin-container table th, td{
+    border: #082b3e 1px solid;
+    padding: 8px;
+    font-size: 15px;
+}
+
+.btn-act{
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    background-color: #caffb2;
+    padding: 5px; 
+    border: .5px solid;
+    border-radius: .5em;
+}
+
+.btn-act:hover{
+    background-color: #1c1e1b;
+}
+
+.btn-er{
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    background-color: #ffb2b2;
+    padding: 5px; 
+    border: .5px solid;
+    border-radius: .3em;
+}
+
+.btn-an{
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    background-color: #A0EBCF;
+    padding: 5px; 
+    border: .5px solid;
+    border-radius: .5em;
+}
+
+@media(max-width:991px) {
+    .menu{
+        padding: 30px;
+    }
+
+    .menu label{
+        display: initial;
+    }
+
+    .back{
+        padding: 40px 0;
+    }
+
+    .menu .navbar{
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: #082b3e;
+        display: none;
+    }
+
+    .buscar input[type="search"]{
+        width: 200px;
+        display: initial;
+    }
+
+    .menu .navbar ul li{
+        width: 100%;
+    }
+
+    #menu:checked ~ .navbar{
+        display: initial;
+    }
+}
+

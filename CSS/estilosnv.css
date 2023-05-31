@@ -199,3 +199,21 @@ body{
         display: initial;
     }
 }
+
+.alert{
+    padding: 1em;
+    color: #fff;
+    border-radius: 2px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.alert.error{
+    background: #F2DEDE;
+    border: 1px solid #A94442;
+    color: #A94442;
+}
+
+.alert.success{
+    background: #4CAF50;
+}

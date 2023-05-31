@@ -1,6 +1,6 @@
 <?php
     include('resources.php');
-    include('sesion.html');
+    include('html/sesion.html');
 
     $con = connection();
     $error = '';
@@ -15,8 +15,17 @@
         
         if($result -> num_rows == 1)
         {
-            header("Location: index.html");
-            exit;
+            $row = mysqli_fetch_assoc($result);
+            if($row['type_user'] == 1)
+            {
+                header("Location: admin.php");
+                exit;
+            }
+            else if($row['type_user'] == 2)
+            {
+                header("Location: index.php");
+                exit;
+            }
         }
         else
         {

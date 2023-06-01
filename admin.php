@@ -67,7 +67,7 @@
 			<h3>Datos de juegos</h3>
 
 			<?php
-				require 'resources.php';
+				require ('resources.php');
 				$con = connection();
 
 				// Obtener los datos de la tabla
@@ -97,11 +97,12 @@
 					echo "<th>Opciones</th>";
 					echo "</tr>";
 				
+					$i = 1;
 					// Iterar sobre los datos y generar las filas de la tabla
 					while ($row = $result->fetch_assoc()) 
 					{
 						echo "<tr>";
-						echo "<td>" . $row["id_game"] . "</td>";
+						echo "<td>" . $i . "</td>";
 						echo "<td><img src = ' data:image/jpg; base64,". base64_encode($row['cover_image']) . "' height = 120, width = 100></img></td>";
 						echo "<td>" . $row["title"] . "</td>";
 						echo "<td>" . $row["subtitle"] . "</td>";
@@ -115,28 +116,30 @@
 						echo '<td><button type="button">Eliminar</button></td>';
 						echo '<td><button type="button">Añadir</button></td>';
 						echo "</tr>";
+
+						$i++;
 					}
 				
 						echo "</table>";
+						
 					} 
-					else 
-					{
-						echo "No se encontraron registros.";
-					}
-				
+				else 
+				{
+					echo "No se encontraron registros.";
+				}
 					// Cerrar la conexión
-					$con->close();
+				$con->close();
 			?>
 
 		</div>
 
 	<form id="form2" class="admin-container">
-	<h3></h3>
+	<h3>Datos de usuarios</h3>
 			<?php
-				require 'conexion.php';
-
+				
+				$con = connection();
 				// Obtener los datos de la tabla
-				$sql = "SELECT * FROM usuario";
+				$sql = "SELECT id_user, email, user_name, password_user, TName FROM user_ INNER JOIN type_ on user_.type_user = type_.id_Type WHERE TName = 'USER'";
 				$result = $con->query($sql);
 						
 				if ($result->num_rows > 0) 
@@ -145,18 +148,30 @@
 					echo "<table>";
 					echo "<tr>";
 					echo "<th>ID</th>";
+					echo "<th>Correo</th>";
 					echo "<th>Usuario</th>";
 					echo "<th>Contraseña</th>";
+					echo "<th>Tipo</th>";
+					echo "<th>Opciones</th>";
+					echo "<th>Opciones</th>";
+					echo "<th>Opciones</th>";
 					echo "</tr>";
 				
+					$i = 1;
 					// Iterar sobre los datos y generar las filas de la tabla
 					while ($row = $result->fetch_assoc()) 
 					{
 						echo "<tr>";
-						echo "<td>" . $row["id_usu"] . "</td>";
-						echo "<td>" . $row["usuario"] . "</td>";
-						echo "<td>" . $row["clave"] . "</td>";
+						echo "<td>" . $i . "</td>";
+						echo "<td>" . $row["email"] . "</td>";
+						echo "<td>" . $row["user_name"] . "</td>";
+						echo "<td>" . $row["password_user"] . "</td>";
+						echo "<td>" . $row["TName"] . "</td>";
+						echo '<td><button type="button">Actualizar</button></td>';
+						echo '<td><button type="button">Eliminar</button></td>';
+						echo '<td><button type="button">Añadir</button></td>';
 						echo "</tr>";
+						$i++;
 					}
 				
 					echo "</table>";
@@ -170,12 +185,58 @@
 				$con->close();
 			?>
     </form>
-
-		<div id="form3" class="admin-container">
-		</div>
-	<div class="contra">
-
-	</div>
+	<form id="form3" class="admin-container">
+	<h3>Datos de colaboradores</h3>
+			<?php
+				
+				$con = connection();
+				// Obtener los datos de la tabla
+				$sql = "SELECT id_user, email, user_name, password_user, TName FROM user_ INNER JOIN type_ on user_.type_user = type_.id_Type WHERE TName != 'USER'";
+				$result = $con->query($sql);
+						
+				if ($result->num_rows > 0) 
+				{
+				// Imprimir la tabla HTML
+					echo "<table>";
+					echo "<tr>";
+					echo "<th>ID</th>";
+					echo "<th>Correo</th>";
+					echo "<th>Usuario</th>";
+					echo "<th>Contraseña</th>";
+					echo "<th>Tipo</th>";
+					echo "<th>Opciones</th>";
+					echo "<th>Opciones</th>";
+					echo "<th>Opciones</th>";
+					echo "</tr>";
+				
+					$i = 1;
+					// Iterar sobre los datos y generar las filas de la tabla
+					while ($row = $result->fetch_assoc()) 
+					{
+						echo "<tr>";
+						echo "<td>" . $i . "</td>";
+						echo "<td>" . $row["email"] . "</td>";
+						echo "<td>" . $row["user_name"] . "</td>";
+						echo "<td>" . $row["password_user"] . "</td>";
+						echo "<td>" . $row["TName"] . "</td>";
+						echo '<td><button type="button">Actualizar</button></td>';
+						echo '<td><button type="button">Eliminar</button></td>';
+						echo '<td><button type="button">Añadir</button></td>';
+						echo "</tr>";
+						$i++;
+					}
+				
+					echo "</table>";
+				} 
+				else 
+				{
+					echo "No se encontraron registros.";
+				}
+			
+				// Cerrar la conexión
+				$con->close();
+			?>
+    </form>
 	
 		
 

@@ -205,5 +205,9 @@ body{
     #menu:checked ~ .navbar{
         display: initial;
     }
+
+    .tabla-container .admin-container table{
+        width: 700px;
+    }
 }
 

@@ -13,7 +13,7 @@
     function validate_text($text)
     {
         $text = trim($text);
-        $text = filter_var($text, FILTER_SANITIZE_STRING);
+        //$text = filter_var($text, FILTER_SANITIZE_STRING);
         $text = htmlspecialchars($text);
 
         return $text;
@@ -31,9 +31,11 @@
 
     function validate_password($password)
     {
+        $bool = false;
+
         $er = '/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$!%&*?])[a-zA-Z\d@#$!%&*?]{8,100}$/';
 
-        return (preg_match($er, $password)) ? true : false;
+        return (preg_match($er, $password)) ? $password : $bool;
     }
 
 

@@ -1,6 +1,6 @@
 <?php
     include('resources.php');
-    include('html/sesion.html');
+    include('views/sesion.html');
 
     $con = connection();
     $error = '';

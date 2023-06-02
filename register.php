@@ -7,7 +7,7 @@
     if($_SERVER['REQUEST_METHOD'] == 'POST')
     {
         $email_register = validate_email($_POST['email_register']);
-        $user_register = validate_text($POST['user_register']);
+        $user_register = validate_text($_POST['user_register']);
         $password = $_POST['password_register'];
         $password_repeat = $_POST['password_register_repeat'];
 

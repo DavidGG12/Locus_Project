@@ -38,5 +38,9 @@
         return (preg_match($er, $password)) ? $password : $bool;
     }
 
-
+    function setSession($user)
+    {
+        session_start();
+        $_SESSION['user'] = $user;
+    }
 ?>

@@ -45,7 +45,7 @@
 				<nav class="navbar">
 					<ul>
 						<li><a href="index.html">Inicio</a></li>
-						<li><a href="sesion.html">Cerrar sesión</a></li>
+						<li><a>Cerrar sesión</a></li>
 					</ul>
 				</nav>
 			</div>

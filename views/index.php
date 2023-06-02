@@ -1,3 +1,10 @@
+<?php
+	session_start();
+	if($_SESSION)
+	{
+		$user = $_SESSION['user'];
+	}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -20,7 +27,7 @@
 				<nav class="navbar">
 					<ul>
 						<li><a href="#">Inicio</a></li>
-						<li><a href="login.php">Iniciar Sesión</a></li>
+						<li><?php if(!$_SESSION){ echo "<a href='login.php'>Iniciar Sesion</a>"; } else { echo "<a href='#'>$user</a>"; } ?></li>
 					</ul>
 				</nav>
 			</div>

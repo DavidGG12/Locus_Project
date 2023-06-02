@@ -15,6 +15,8 @@
         
         if($result -> num_rows == 1)
         {
+            setSession($user_login);
+
             $row = mysqli_fetch_assoc($result);
             if($row['type_user'] == 1)
             {

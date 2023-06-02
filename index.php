@@ -1,3 +1,3 @@
 <?php
 
-    include("views/index.html");
+    include("views/index.php");

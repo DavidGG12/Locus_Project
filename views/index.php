@@ -1,8 +1,9 @@
 <?php
+	include('resources.php');
 	session_start();
-	if($_SESSION)
+	if($_COOKIE)
 	{
-		$user = $_SESSION['user'];
+		$user = $_COOKIE['user'];
 	}
 ?>
 <!DOCTYPE html>
@@ -12,10 +13,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Inicio de Sesión</title>
 	<link rel="stylesheet" type="text/css" href="CSS/estilosnv.css">
-	
 </head>
 <body>
-
 	<header>
 		<div class="back">
 			<div class="menu container">
@@ -27,12 +26,11 @@
 				<nav class="navbar">
 					<ul>
 						<li><a href="#">Inicio</a></li>
-						<li><?php if(!$_SESSION){ echo "<a href='login.php'>Iniciar Sesion</a>"; } else { echo "<a href='#'>$user</a>"; } ?></li>
+						<li><?php if(!$_COOKIE){ echo "<a href='login.php'>Iniciar Sesion</a>"; } else { echo "<a href='#'>$user</a>"; } ?></li>
 					</ul>
 				</nav>
 			</div>
 		</div>
 	</header>
-
 </body>
 </html>

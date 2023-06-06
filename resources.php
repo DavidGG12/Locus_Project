@@ -41,6 +41,12 @@
     function setSession($user)
     {
         session_start();
-        $_SESSION['user'] = $user;
+        setcookie('user', $user, time() + 60 * 60 * 24 * 30, '/');
+        //$_SESSION['user'] = $_COOKIE['user'];
+    }
+
+    function getSession()
+    {
+        return $_SESSION['user'];
     }
 ?>

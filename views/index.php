@@ -1,7 +1,7 @@
 <?php
 	include('resources.php');
 	session_start();
-	if($_COOKIE)
+	if($_COOKIE['user'])
 	{
 		$user = $_COOKIE['user'];
 	}
@@ -26,7 +26,7 @@
 				<nav class="navbar">
 					<ul>
 						<li><a href="#">Inicio</a></li>
-						<li><?php if(!$_COOKIE){ echo "<a href='login.php'>Iniciar Sesion</a>"; } else { echo "<a href='#'>$user</a>"; } ?></li>
+						<li><?php if(!$_COOKIE['user']){ echo "<a href='login.php'>Iniciar Sesion</a>"; } else { echo "<a href='cerrar.php'>$user</a>"; } ?></li>
 					</ul>
 				</nav>
 			</div>

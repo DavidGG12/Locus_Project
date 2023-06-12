@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../Locus/bootstrap"
+		},
+		{
+			"path": "../../Locus/js"
+		}
+	],
+	"settings": {}
+}

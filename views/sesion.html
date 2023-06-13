@@ -41,7 +41,7 @@
 				</li>
 				  
 				<li class="nav-item">
-					<a class="nav-link" style="font-family: 'Oswald', sans-serif; font-size: 20px;" href="sesion_prueba.html">Iniciar sesión</a>
+					<a class="nav-link" style="font-family: 'Oswald', sans-serif; font-size: 20px;" href="login.php">Iniciar sesión</a>
 				</li>
 			</ul>
 	
@@ -91,20 +91,20 @@
 </nav>
 
 	<div class="flex-container">
-		<form class="form" action="" method="">
+		<form class="form" action="login.php" method="POST">
 			<h2 class="form__title">Inicia Sesión</h2>
-				<p class="form__paragraph">¿Aún no tienes una cuenta? <a href="/pruebas/registro_prueba.html" class="form__link">Registrate aquí</a></p>
+				<p class="form__paragraph">¿Aún no tienes una cuenta? <a href="register.php" class="form__link">Registrate aquí</a></p>
 
 
 			<div class="form__container">
 				<div class="form__group">
-					<input type="text" class="form__input" id="user" placeholder=" ">
+					<input type="text" class="form__input" id="user" placeholder=" " name="user_login" required>
 					<label for="user" class="form__label">Usuario:</label>
 					<span class="form__line"></span>
 				</div>
 
 				<div class="form__group">
-					<input type="text" class="form__input" id="password" placeholder=" ">
+					<input type="password" class="form__input" id="password" placeholder=" " name="password" required>
 					<label for="password" class="form__label">Contraseña:</label>
 					<span class="form__line"></span>
 				</div>

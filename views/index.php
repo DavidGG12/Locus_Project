@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+
+<?php 
+  include('resources.php');
+?>
 <html lang="es">
   <head>
     <!--Scripts-->
@@ -7,7 +11,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prueba Principal</title>
+    <title>Locus List</title>
 
     <!--Estilos (no mover)-->
     <link rel="stylesheet"  href="/Locus_Project-1/bootstrap/css/bootstrap.min.css">
@@ -43,7 +47,13 @@
               </li>
               
               <li class="nav-item">
-                <a class="nav-link" style="font-family: 'Oswald', sans-serif; font-size: 20px;" href="login.php">Iniciar sesión</a>
+                <?php if(!$_COOKIE): ?>
+                  <a class="nav-link" style="font-family: 'Oswald', sans-serif; font-size: 20px;" href="login.php">Iniciar sesión</a>
+                <?php elseif($_COOKIE): ?>
+                  <a class="nav-link" style="font-family: 'Oswald', sans-serif; font-size: 20px;" href="#"><?php echo getSession(); ?></a>
+                <?php else: ?>
+                  <a class="nav-link" style="font-family: 'Oswald', sans-serif; font-size: 20px;" href="login.php">No mames</a>
+                <?php endif ?>
               </li>
             </ul>
 

@@ -38,11 +38,11 @@
 			  <div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav ms-auto" >
 				  <li class="nav-item">
-					<a class="nav-link active" style="font-family: 'Oswald', sans-serif; font-size: 20px;" aria-current="page" href="#">Inicio</a>
+					<a class="nav-link active" style="font-family: 'Oswald', sans-serif; font-size: 20px;" aria-current="page" href="index.php">Inicio</a>
 				  </li>
 				  
 				  <li class="nav-item">
-					<a class="nav-link" style="font-family: 'Oswald', sans-serif; font-size: 20px;" href="/pruebas/sesion_prueba.html">Iniciar sesión</a>
+					<a class="nav-link" style="font-family: 'Oswald', sans-serif; font-size: 20px;" href="login.php">Iniciar sesión</a>
 				  </li>
 				</ul>
 	
@@ -92,32 +92,32 @@
 		  </nav>
 
     <div class="flex-container">
-    <form class="form" action="" method="">
+    <form class="form" action="register.php" method="post">
         <h2 class="form__title">¡Bienvenido, registrate!</h2>
-            <p class="form__paragraph">¿Ya tienes cuenta? <a href="/pruebas/sesion_prueba.html" class="form__link">Ingresa aquí</a></p>
+            <p class="form__paragraph">¿Ya tienes cuenta? <a href="login.php" class="form__link">Ingresa aquí</a></p>
 
 
         <div class="form__container">
             <div class="form__group">
-                <input type="text" class="form__input" id="correo" placeholder=" ">
+                <input type="email" name="email_register" class="form__input" id="correo" placeholder=" " required>
                 <label for="Correo" class="form__label">Correo:</label>
                 <span class="form__line"></span>
             </div>
 
             <div class="form__group">
-                <input type="text" class="form__input" id="user" placeholder=" ">
+                <input type="text" name="user_register" class="form__input" id="user" placeholder=" " required>
                 <label for="user" class="form__label">Nombre de usuario:</label>
                 <span class="form__line"></span>
             </div>
 
             <div class="form__group">
-                <input type="text" class="form__input" id="password" placeholder=" ">
+                <input type="password" name="password_register" class="form__input" id="password" placeholder=" " required>
                 <label for="password" class="form__label">Contraseña:</label>
                 <span class="form__line"></span>
             </div>
 
             <div class="form__group">
-                <input type="text" class="form__input" id="password" placeholder=" ">
+                <input type="password" name="password_register_repeat" class="form__input" id="password" placeholder=" " required>
                 <label for="password" class="form__label">Confrimar contraseña:</label>
                 <span class="form__line"></span>
             </div>

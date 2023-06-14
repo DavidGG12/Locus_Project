@@ -39,14 +39,26 @@
     }
 
     function setSession($user)
-    {
-        session_start();
+    { 
         setcookie('user', $user, time() + 60 * 60 * 24 * 30, '/');
-        //$_SESSION['user'] = $_COOKIE['user'];
     }
 
     function getSession()
     {
-        return $_SESSION['user'];
+        if($_COOKIE)
+        {
+            session_start();
+            $_SESSION['user'] = $_COOKIE['user'];
+            return $_SESSION['user'];
+        }
+        else
+        {
+            return "No session";
+        }
+    }
+
+    function destroySession($user)
+    {
+        setcookie('user', $user, time() - 60 * 60 * 24 * 30, '/');
     }
 ?>

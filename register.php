@@ -1,7 +1,6 @@
 <?php
     include('resources.php');
-    require('views/registro.html');
-
+    
     $con = connection();
 
     if($_SERVER['REQUEST_METHOD'] == 'POST')
@@ -10,25 +9,25 @@
         $user_register = validate_text($_POST['user_register']);
         $password = $_POST['password_register'];
         $password_repeat = $_POST['password_register_repeat'];
-
+        
         $research = "SELECT user_name FROM user_ WHERE user_name = '$user_register' OR email = '$email_register'";
         $result = $con->query($research);
-
+        
         if($result->num_rows == 1)
         {
             echo "<script>alert('Usuario ya existente');</script>";
         }
-
+        
         else if(strcasecmp($password, $password_repeat))
         {
             echo "<script>alert('Contraseñas no coinciden');</script>";
         }
-
+        
         else if(!validate_password($password))
         {
             echo "<script>alert('La contraseña tiene que tener mayúsculas, minúsculas, números y un carácter especial')</script>";
         }
-
+        
         else
         {
             try
@@ -44,3 +43,5 @@
             }
         }
     }
+    
+    require('views/registro.html');

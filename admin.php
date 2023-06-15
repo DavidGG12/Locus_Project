@@ -188,39 +188,56 @@
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Clave</th>
+                                <th scope="col">COVER</th>
+                                <th scope="col">TITLE</th>
+                                <th scope="col">SUBTITLE</th>
+                                <th scope="col">DESCRIPTION</th>
+                                <th scope="col">VERSION</th>
+                                <th scope="col">STORAGE</th>
+                                <th scope="col">PLATFORM</th>
+                                <th scope="col">DEVELOPER</th>
+                                <th scope="col">CLASSIFICATION</th>
                             </tr>
                         </thead>
-                      <tbody>
-                          <?php
-                              // Conexión a la base de datos
-                              $conexion = mysqli_connect("localhost", "root", "", "credencial");
+                        <tbody>
+                            <?php
+                            // Conexión a la base de datos
+                            $con = connection();
+                            $i = 1;
 
-                              // Comprobar la conexión
-                                if ($conexion === false) {
-                                    die("Error de conexión: " . mysqli_connect_error());
-                                }
+                            // Consulta para obtener los datos de la tabla
+                            $query = "SELECT id_game, title, subtitle, description_game, cover_image, version, storage_game, PFName, DName, CName from videogames
+							    INNER JOIN platform on videogames.platform_games = platform.id_platform
+							    INNER JOIN developer on videogames.developer_games = developer.id_developer
+							    INNER JOIN classificaton on videogames.classification_games = classificaton.id_Classification";
+                            $result = mysqli_query($con, $query);
+                            
+                            // Mostrar los datos en la tabla
+                            while ($row = mysqli_fetch_assoc($result)) 
+                            {
+                                echo "<tr>";
+                                echo "<td>" . $i . "</td>";
+                                echo "<td><img src = ' data:image/jpg; base64,". base64_encode($row['cover_image']) . "' height = 120, width = 100></img></td>";
+                                echo "<td>" . $row["title"] . "</td>";
+                                echo "<td>" . $row["subtitle"] . "</td>";
+                                echo "<td>" . $row["description_game"] . "</td>";
+                                echo "<td>" . $row["version"] . "</td>";
+                                echo "<td>" . $row["storage_game"] . "</td>";
+                                echo "<td>" . $row["PFName"] . "</td>";
+                                echo "<td>" . $row["DName"] . "</td>";
+                                echo "<td>" . $row["CName"] . "</td>";
+                                echo "<td> <a href='#' class='btn btn-primary'>Editar</a></td>";
+                                echo "<td> <a href='#' class='btn btn-danger'>Eliminar</a></td>";
+                                echo "</tr>";
 
-                                // Consulta para obtener los datos de la tabla
-                                $query = "SELECT * FROM usuario";
-                                $result = mysqli_query($conexion, $query);
+                                $i++;
+                            }
+                            
 
-                                // Mostrar los datos en la tabla
-                                while ($row = mysqli_fetch_assoc($result)) {
-                                    echo "<tr>";
-                                    echo "<td>" . $row['id_usu'] . "</td>";
-                                    echo "<td>" . $row['usuario'] . "</td>";
-                                    echo "<td>" . $row['clave'] . "</td>";
-                                    echo "<td> <a href='#' class='btn btn-primary'>Editar</a></td>";
-                                    echo "<td> <a href='#' class='btn btn-danger'>Eliminar</a></td>";
-                                    echo "</tr>";
-                                }
-
-                                // Liberar memoria y cerrar la conexión
-                                mysqli_free_result($result);
-                                mysqli_close($conexion);
-                                ?>
+                            // Liberar memoria y cerrar la conexión
+                            mysqli_free_result($result);
+                            mysqli_close($con);
+                            ?>
                         </tbody>
                     </table>
                 </div>

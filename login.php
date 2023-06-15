@@ -1,5 +1,5 @@
 <?php
-    include('resources.php');
+    include_once('resources.php');
     
     $con = connection();
     $error = '';

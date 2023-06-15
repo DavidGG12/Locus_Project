@@ -6,7 +6,7 @@
 <html lang="es">
   <head>
     <!--Scripts-->
-    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/Locus_Project/bootstrap/js/bootstrap.min.js"></script>
 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,7 +14,7 @@
     <title>Locus List</title>
 
     <!--Estilos (no mover)-->
-    <link rel="stylesheet"  href="/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet"  href="/Locus_Project/bootstrap/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Geologica&family=Oswald:wght@700&family=Roboto&family=Rubik+Puddles&display=swap" rel="stylesheet">
     
 </head>
@@ -107,15 +107,15 @@
       <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" style="opacity: 70%;">
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img src="/imagenes/crash1.png" class="d-block w-100" alt="">
+            <img src="/Locus_Project/imagenes/crash1.png" class="d-block w-100" alt="">
           </div>
 
           <div class="carousel-item">
-            <img src="/imagenes/mario2.png" class="d-block w-100" alt="">
+            <img src="/Locus_Project/imagenes/mario2.png" class="d-block w-100" alt="">
           </div>
 
           <div class="carousel-item">
-            <img src="/imagenes/Minecraft3.jpg" class="d-block w-100" alt="">
+            <img src="/Locus_Project/imagenes/Minecraft3.jpg" class="d-block w-100" alt="">
           </div>
         </div>
       </div>
@@ -144,7 +144,7 @@
         <div class="row m-2 p-xl-3">      
           <div class="col-md-4">
             <div class="card mb-4 box-shadow">
-              <img class="card-img-top" alt="Playstation" style="height: 225px; width: 100%; display: block;" src="/imagenes/loco.avif" data-holder-rendered="true">
+              <img class="card-img-top" alt="Playstation" style="height: 225px; width: 100%; display: block;" src="/Locus_Project/imagenes/loco.avif" data-holder-rendered="true">
               <div class="card-body">
                 <p class="card-text" style="font-family: 'Oswald', sans-serif; font-size: 20px;">Sugerencias de juegos en playstation</p>
                 <div class="d-flex justify-content-between align-items-center">
@@ -158,7 +158,7 @@
 
           <div class="col-md-4">
             <div class="card mb-4 box-shadow">
-              <img class="card-img-top" alt="Xbox" style="height: 225px; width: 100%; display: block;" src="/imagenes/xb.png" data-holder-rendered="true">
+              <img class="card-img-top" alt="Xbox" style="height: 225px; width: 100%; display: block;" src="/Locus_Project/imagenes/xb.png" data-holder-rendered="true">
               <div class="card-body">
                 <p class="card-text" style="font-family: 'Oswald', sans-serif; font-size: 20px;">Sugerencias de juegos en Xbox</p>
                 <div class="d-flex justify-content-between align-items-center">
@@ -172,7 +172,7 @@
 
           <div class="col-md-4">
             <div class="card mb-4 box-shadow">
-              <img class="card-img-top" alt="PC" style="height: 225px; width: 100%; display: block;" src="/imagenes/st.png" data-holder-rendered="true">
+              <img class="card-img-top" alt="PC" style="height: 225px; width: 100%; display: block;" src="/Locus_Project/imagenes/st.png" data-holder-rendered="true">
               <div class="card-body">
                 <p class="card-text" style="font-family: 'Oswald', sans-serif; font-size: 20px;">Sugerencias de juegos en PC</p>
                 <div class="d-flex justify-content-between align-items-center">

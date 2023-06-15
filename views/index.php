@@ -47,10 +47,29 @@
               </li>
               
               <li class="nav-item">
-                <?php if(!$_COOKIE): ?>
+                <?php if(!isset($_COOKIE['user'])): ?>
                   <a class="nav-link" style="font-family: 'Oswald', sans-serif; font-size: 20px;" href="login.php">Iniciar sesión</a>
-                <?php elseif($_COOKIE): ?>
-                  <a class="nav-link" style="font-family: 'Oswald', sans-serif; font-size: 20px;" href="#"><?php echo getSession(); ?></a>
+                <?php elseif(isset($_COOKIE['user'])): ?>
+                  <!--COLOCAR UN IF PARA QUE, CUANDO SEA ADMIN Y TOQUE SU NOMBRE LO DIRIJA A LA PÁGINA DE ADMIN, MIENTRAS QUE EL USUARIO NORMAL, LO DIRIJA A SU PERFIL-->
+                  <?php 
+                    $con = connection();
+                    $user = getSession();
+                    
+                    $research = "SELECT type_user FROM user_ WHERE user_name = '$user';";
+                    $result = $con -> query($research);
+                    $type = mysqli_fetch_assoc($result);
+                    if($result -> num_rows == 1)
+                    {
+                      if($type['type_user'] == 1 || $type['type_user'] == 3)
+                      {
+                        echo "<a class='nav-link' style='font-family: 'Oswald', sans-serif; font-size: 20px;' href='admin.php'>$user</a>";
+                      }
+                      elseif($type['type_user'] == 2)
+                      {
+                        echo "<a class='nav-link' style='font-family: 'Oswald', sans-serif; font-size: 20px;' href=''>$user</a>";
+                      }
+                    }
+                  ?>
                 <?php else: ?>
                   <a class="nav-link" style="font-family: 'Oswald', sans-serif; font-size: 20px;" href="login.php">No mames</a>
                 <?php endif ?>

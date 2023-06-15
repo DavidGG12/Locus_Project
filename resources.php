@@ -45,7 +45,7 @@
 
     function getSession()
     {
-        if($_COOKIE)
+        if(isset($_COOKIE['user']))
         {
             session_start();
             $_SESSION['user'] = $_COOKIE['user'];

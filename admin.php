@@ -7,17 +7,33 @@
     <title>Administrador</title>
 
     <!--Estilos Bootstrap y Google Fonts-->
-    <link rel="stylesheet" href="http://localhost/LOCUS/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Locus_Project/bootstrap/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Geologica&family=Oswald:wght@700&family=Roboto&family=Rubik+Puddles&display=swap" rel="stylesheet">
 </head>
 
 <body>
+    <?php
+        include("resources.php");
+    ?>
+    <!---Funciones---->
+    <script>
+    function mostrarFormulario(formularioId) 
+    {
+        var formularios = document.getElementsByClassName('admin-container');
+        for (var i = 0; i < formularios.length; i++) 
+        {
+            formularios[i].style.display = 'none';
+        }
+        document.getElementById(formularioId).style.display = 'block';
+    }
+    </script>
+
     <!--barra de navegación-->
     <nav class="navbar navbar-expand-md navbar-dark" style="background-color:#041721; font-size: 18px;">
         <!--clase responsive-->
         <div class="container-fluid">
             <!--icono y nombre de la página-->
-            <a class="navbar-brand" href="/pruebas/prueba.html">
+            <a class="navbar-brand" href="index.php">
                 <span class="fs-3 " style="color: #a0cceb; font-family: 'Rubik Puddles', cursive;"> &nbsp; Locus
                     Proyect</span>
             </a>
@@ -32,8 +48,9 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
+                        <!--COLOCAR EL LINK PARA EL CIERRE DE SESIÓN-->
                         <a class="nav-link" style="font-family: 'Oswald', sans-serif; font-size: 20px;"
-                            href="sesion_prueba.html">Cerrar sesión</a>
+                            href="destroySession.php">Cerrar sesión</a>
                     </li>
                 </ul>
 
@@ -228,20 +245,9 @@
 
 
     <!--Scripts-->
-    <script src="http://localhost/LOCUS/bootstrap/js/bootstrap.min.js"></script>
-    <script src="http://localhost/LOCUS/bootstrap/js/bootstrap.bundle.js"></script>
-    <script src="http://localhost/LOCUS/js/jquery-3.7.0.min.js"></script>
-
-    <!---Funciones---->
-    <script>
-    function mostrarFormulario(formularioId) {
-        var formularios = document.getElementsByClassName('admin-container');
-        for (var i = 0; i < formularios.length; i++) {
-            formularios[i].style.display = 'none';
-        }
-        document.getElementById(formularioId).style.display = 'block';
-    }
-    </script>
+    <script src="/Locus_Project/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/Locus_Project/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="/Locus_Project/js/jquery-3.7.0.min.js"></script>
 </body>
 
 </html>

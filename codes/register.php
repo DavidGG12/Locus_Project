@@ -44,4 +44,4 @@
         }
     }
     
-    require('views/registro.html');
+    //require('views/registro.html');

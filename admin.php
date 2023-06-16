@@ -14,6 +14,7 @@
 <body>
     <?php
         include("resources.php");
+        //include("codes/register.php");
     ?>
     <!---Funciones---->
     <script>
@@ -245,16 +246,172 @@
                 <div id="usuarios" class="admin-container" style="display: none;">
                     <h3>Datos de usuarios</h3>
 
-                    <button type="button" class="btn btn-outline-success">Añadir</button>
+                    <button id="btnAdd" type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#Añadir_Usuario">Añadir</button>
 
-          
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">EMAIL</th>
+                                <th scope="col">USER</th>
+                                <th scope="col">PASSWORD</th>
+                                <th scope="col">TYPE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                $con = connection();
+
+                                //Obtener los datos de la tabla y el tipo con un inner join
+                                $query = "SELECT id_user, email, user_name, password_user, TName FROM user_ INNER JOIN type_ on user_.type_user = type_.id_Type WHERE TName = 'USER'";
+                                $result = $con -> query($query);
+
+                                if($result -> num_rows != 0)
+                                {
+                                    $i = 1;
+
+                                    while ($row = $result->fetch_assoc()) 
+                                    {
+                                        echo "<tr>";
+                                        echo "<td>" . $i . "</td>";
+                                        echo "<td>" . $row["email"] . "</td>";
+                                        echo "<td>" . $row["user_name"] . "</td>";
+                                        echo "<td>" . $row["password_user"] . "</td>";
+                                        echo "<td>" . $row["TName"] . "</td>";
+                                        echo "<td> <a href='#' class='btn btn-primary'>Editar</a></td>";
+                                        echo "<td> <a href='#' class='btn btn-danger'>Eliminar</a></td>";
+                                        echo "</tr>";
+                                        $i++;
+                                    }
+                                }
+                            ?>
+                        </tbody>
+                    </table>
+
+                    <!--Modal Usuarios-->
+                    <div id="Añadir_Usuario" class="modal" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Añadir Colaboradores: </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+
+                                <!--Formulario Usuarios-->
+                                    <form action="codes/register.php" method="post">
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">Usuario:</label>
+                                            <input type="text" name = "user_register" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">Correo:</label>
+                                            <input type="email" name = "email_register" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleInputPassword1" class="form-label">Contraseña:</label>
+                                            <input type="password" name = "password_register" class="form-control" id="exampleInputPassword1" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleInputPassword1" class="form-label">Repetir Contraseña:</label>
+                                            <input type="password" name = "password_repeat_register" class="form-control" id="exampleInputPassword1" required>
+                                        </div>
+                                    </form>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <button type="button" name="register" class="btn btn-primary">Registrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
                 <div id="colaboradores" class="admin-container" style="display: none;">
                     <h3>Datos de Colaboradores</h3>
 
-                    <button type="button" class="btn btn-outline-success">Añadir</button>
+                    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#Añadir_Colaborador">Añadir</button>
 
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">EMAIL</th>
+                                <th scope="col">USER</th>
+                                <th scope="col">PASSWORD</th>
+                                <th scope="col">TYPE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                $con = connection();
+
+                                //Obtener los datos de la tabla y el tipo con un inner join
+                                $query = "SELECT id_user, email, user_name, password_user, TName FROM user_ INNER JOIN type_ on user_.type_user = type_.id_Type WHERE TName = 'ADMIN'";
+                                $result = $con -> query($query);
+
+                                if($result -> num_rows != 0)
+                                {
+                                    $i = 1;
+
+                                    while ($row = $result->fetch_assoc()) 
+                                    {
+                                        echo "<tr>";
+                                        echo "<td>" . $i . "</td>";
+                                        echo "<td>" . $row["email"] . "</td>";
+                                        echo "<td>" . $row["user_name"] . "</td>";
+                                        echo "<td>" . $row["password_user"] . "</td>";
+                                        echo "<td>" . $row["TName"] . "</td>";
+                                        echo "<td> <a href='#' class='btn btn-primary'>Editar</a></td>";
+                                        echo "<td> <a href='#' class='btn btn-danger'>Eliminar</a></td>";
+                                        echo "</tr>";
+                                        $i++;
+                                    }
+                                }
+                            ?>
+                        </tbody>
+                    </table>
+
+                    <!--Modal Colaboradores-->
+                    <div id="Añadir_Colaborador" class="modal" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Añadir Colaboradores: </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+
+                                <!--Formulario Colaboradores-->
+                                    <form>
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">Usuario:</label>
+                                            <input type="text" name = "user_register_colaborator" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">Correo:</label>
+                                            <input type="email" name = "email_register_colaborator" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleInputPassword1" class="form-label">Contraseña:</label>
+                                            <input type="password" name = "password_register_colaborator" class="form-control" id="exampleInputPassword1" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleInputPassword1" class="form-label">Repetir Contraseña:</label>
+                                            <input type="password" name = "password_repeat_register_colaborator" class="form-control" id="exampleInputPassword1" required>
+                                        </div>
+                                    </form>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <button type="button" name="register" class="btn btn-primary">Registrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

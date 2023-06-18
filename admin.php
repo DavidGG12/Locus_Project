@@ -178,6 +178,27 @@
                 </div>
             </div>
 
+            <!--Script para los botones de los modals-->
+
+            <script>
+                document.getElementById("register_colaborator").addEventListener("click", function(){
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "admin_register.php", true);
+                    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                    xhr.onreadystatechange = function() 
+                    {
+                        if (xhr.readyState === 4 && xhr.status === 200) 
+                        {
+                            // Se ha recibido la respuesta del archivo PHP
+                            var response = xhr.responseText;
+                            // Puedes realizar acciones con la respuesta recibida, como mostrar un mensaje o actualizar la página
+                            alert(response);
+                        }
+                    };
+                    xhr.send();
+                });
+            </script>
+
             <!--Contenedor principal de formularios-->
             <div class="col py-5">
                 <div id="juegos" class="admin-container" style="display: none;">
@@ -321,7 +342,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                    <button type="button" name="register" class="btn btn-primary">Registrar</button>
+                                    <button type="button" id="register_colaborator" class="btn btn-primary">Registrar</button>
                                 </div>
                             </div>
                         </div>

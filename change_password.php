@@ -19,7 +19,7 @@
             <br>
             <input type="submit" value="Iniciar Sesión" name="login">
             <br>
-            <label>¿No tienes cuenta? </label><a href="GUI_register.php">Registrate</a>
+            <label>¿No tienes cuenta? </label><a href="registro.html">Registrate</a>
         </form>
         <?php
             include("Resources/connection.php");

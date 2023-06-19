@@ -67,7 +67,7 @@
 			<h3>Datos de juegos</h3>
 
 			<?php
-				require ('resources.php');
+				require ('functions.php');
 				$con = connection();
 
 				// Obtener los datos de la tabla

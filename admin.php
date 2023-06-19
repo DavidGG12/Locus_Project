@@ -13,8 +13,8 @@
 
 <body>
     <?php
-        include("resources.php");
-        //include("codes/register.php");
+        include("functions.php");
+        //include("register.php");
     ?>
     <!---Funciones---->
     <script>
@@ -299,7 +299,7 @@
                                 <div class="modal-body">
 
                                 <!--Formulario Usuarios-->
-                                    <form action="codes/register.php" method="post">
+                                    <form action="register.php" method="post">
                                         <div class="mb-3">
                                             <label for="exampleInputEmail1" class="form-label">Usuario:</label>
                                             <input type="text" name = "user_register" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
@@ -321,7 +321,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                    <button type="button" id="register_colaborator" class="btn btn-primary">Registrar</button>
+                                    <button type="button" id="register_user" class="btn btn-primary">Registrar</button>
                                 </div>
                             </div>
                         </div>
@@ -375,7 +375,7 @@
                     </table>
 
                     <!--Modal Colaboradores-->
-                    <form action = "admin_register.php" method="post">
+                    <form action = "register.php" method="post">
                         <div id="Añadir_Colaborador" class="modal" tabindex="-1">
                             <div class="modal-dialog">
                                 <div class="modal-content">

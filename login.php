@@ -1,5 +1,5 @@
 <?php
-    include_once('resources.php');
+    include_once('functions.php');
     
     $con = connection();
     $error = '';
@@ -40,4 +40,4 @@
         }
     }
     
-    include('views/sesion.html');
+    include('sesion.html');

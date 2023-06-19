@@ -1,5 +1,5 @@
 <?php
-	include('resources.php');
+	include('functions.php');
 	session_start();
 	if($_COOKIE)
 	{

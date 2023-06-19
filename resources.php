@@ -10,6 +10,11 @@
         return $con = new mysqli($servername, $user, $password, $database);
     } 
 
+    function connectionClose($con)
+    {
+        $con -> close();
+    }
+
     function validate_text($text)
     {
         $text = trim($text);

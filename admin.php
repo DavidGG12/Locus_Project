@@ -178,27 +178,6 @@
                 </div>
             </div>
 
-            <!--Script para los botones de los modals-->
-
-            <script>
-                document.getElementById("register_colaborator").addEventListener("click", function(){
-                    var xhr = new XMLHttpRequest();
-                    xhr.open("POST", "admin_register.php", true);
-                    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                    xhr.onreadystatechange = function() 
-                    {
-                        if (xhr.readyState === 4 && xhr.status === 200) 
-                        {
-                            // Se ha recibido la respuesta del archivo PHP
-                            var response = xhr.responseText;
-                            // Puedes realizar acciones con la respuesta recibida, como mostrar un mensaje o actualizar la página
-                            alert(response);
-                        }
-                    };
-                    xhr.send();
-                });
-            </script>
-
             <!--Contenedor principal de formularios-->
             <div class="col py-5">
                 <div id="juegos" class="admin-container" style="display: none;">
@@ -370,7 +349,7 @@
                                 $con = connection();
 
                                 //Obtener los datos de la tabla y el tipo con un inner join
-                                $query = "SELECT id_user, email, user_name, password_user, TName FROM user_ INNER JOIN type_ on user_.type_user = type_.id_Type WHERE TName = 'ADMIN'";
+                                $query = "SELECT id_user, email, user_name, password_user, TName FROM user_ INNER JOIN type_ on user_.type_user = type_.id_Type WHERE TName = 'ADMIN' OR TName = 'COLABORATOR'";
                                 $result = $con -> query($query);
 
                                 if($result -> num_rows != 0)
@@ -396,17 +375,16 @@
                     </table>
 
                     <!--Modal Colaboradores-->
-                    <div id="Añadir_Colaborador" class="modal" tabindex="-1">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Añadir Colaboradores: </h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-
-                                <!--Formulario Colaboradores-->
-                                    <form>
+                    <form action = "admin_register.php" method="post">
+                        <div id="Añadir_Colaborador" class="modal" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Añadir Colaboradores: </h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!--Formulario Colaboradores-->
                                         <div class="mb-3">
                                             <label for="exampleInputEmail1" class="form-label">Usuario:</label>
                                             <input type="text" name = "user_register_colaborator" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
@@ -423,16 +401,15 @@
                                             <label for="exampleInputPassword1" class="form-label">Repetir Contraseña:</label>
                                             <input type="password" name = "password_repeat_register_colaborator" class="form-control" id="exampleInputPassword1" required>
                                         </div>
-                                    </form>
-
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                    <button type="button" name="register" class="btn btn-primary">Registrar</button>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="submit" name="register_colaborator" class="btn btn-primary">Registrar</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

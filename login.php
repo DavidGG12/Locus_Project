@@ -19,11 +19,15 @@
             $row = mysqli_fetch_assoc($result);
             if($row['type_user'] == 1)
             {
+                connectionClose($con);
+
                 header("Location: admin.php");
                 exit;
             }
             else if($row['type_user'] == 2)
             {
+                connectionClose($con);
+
                 header("Location: index.php");
                 exit;
             }
@@ -31,6 +35,8 @@
         else
         {
             echo "Usuario no encontrado";
+            
+            connectionClose($con);
         }
     }
     

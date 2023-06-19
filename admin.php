@@ -243,51 +243,58 @@
                     </table>
                 </div>
 
+
+                <?php
+                    if($_SERVER['REQUEST_METHOD'] == 'POST')
+                    {
+                        echo $_POST['td'];
+                    }
+                ?>
                 <div id="usuarios" class="admin-container" style="display: none;">
                     <h3>Datos de usuarios</h3>
 
                     <button id="btnAdd" type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#Añadir_Usuario">Añadir</button>
+                    <form action = "admin.php" method = "post">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">EMAIL</th>
+                                    <th scope="col">USER</th>
+                                    <th scope="col">PASSWORD</th>
+                                    <th scope="col">TYPE</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                    $con = connection();
 
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">EMAIL</th>
-                                <th scope="col">USER</th>
-                                <th scope="col">PASSWORD</th>
-                                <th scope="col">TYPE</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                                $con = connection();
+                                    //Obtener los datos de la tabla y el tipo con un inner join
+                                    $query = "SELECT id_user, email, user_name, password_user, TName FROM user_ INNER JOIN type_ on user_.type_user = type_.id_Type WHERE TName = 'USER'";
+                                    $result = $con -> query($query);
 
-                                //Obtener los datos de la tabla y el tipo con un inner join
-                                $query = "SELECT id_user, email, user_name, password_user, TName FROM user_ INNER JOIN type_ on user_.type_user = type_.id_Type WHERE TName = 'USER'";
-                                $result = $con -> query($query);
-
-                                if($result -> num_rows != 0)
-                                {
-                                    $i = 1;
-
-                                    while ($row = $result->fetch_assoc()) 
+                                    if($result -> num_rows != 0)
                                     {
-                                        echo "<tr>";
-                                        echo "<td>" . $i . "</td>";
-                                        echo "<td>" . $row["email"] . "</td>";
-                                        echo "<td>" . $row["user_name"] . "</td>";
-                                        echo "<td>" . $row["password_user"] . "</td>";
-                                        echo "<td>" . $row["TName"] . "</td>";
-                                        echo "<td> <a href='#' class='btn btn-primary'>Editar</a></td>";
-                                        echo "<td> <a href='#' class='btn btn-danger'>Eliminar</a></td>";
-                                        echo "</tr>";
-                                        $i++;
-                                    }
-                                }
-                            ?>
-                        </tbody>
-                    </table>
+                                        $i = 1;
 
+                                        while ($row = $result->fetch_assoc()) 
+                                        {
+                                            echo "<tr>";
+                                            echo "<td>" . $i . "</td>";
+                                            echo "<td>" . $row["email"] . "</td>";
+                                            echo "<td>" . $row["user_name"] . "</td>";
+                                            echo "<td>" . $row["password_user"] . "</td>";
+                                            echo "<td>" . $row["TName"] . "</td>";
+                                            echo "<td> <a href='#' class='btn btn-primary'>Editar</a></td>";
+                                            echo "<td> <button type='submit' name='eliminar_user' class='btn btn-primary'>Registrar</button>";
+                                            echo "</tr>";
+                                            $i++;
+                                        }
+                                    }
+                                ?>
+                            </tbody>
+                        </table>
+                    </form>                   
                     <!--Modal Usuarios-->
                     <div id="Añadir_Usuario" class="modal" tabindex="-1">
                         <div class="modal-dialog">

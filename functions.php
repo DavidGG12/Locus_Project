@@ -104,4 +104,16 @@
             }
         }
     }
+
+    function deleteUser($user)
+    {
+        $con = connection();
+
+        $research = "DELETE FROM user_ WHERE user_name = '$user'";
+        $execute = $con->query($research);
+
+        $con -> close();
+
+        echo "<script>alert('Borrado con éxito')</script>";
+    }
 ?>

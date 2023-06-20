@@ -29,6 +29,36 @@
     }
     </script>
 
+    <?php
+        //require('functions.php');
+
+        if($_SERVER['REQUEST_METHOD'] == 'POST')
+        {
+            if(isset($_POST['delete_user']))
+            {
+                deleteUser($_POST['user']);
+            }
+            elseif(isset($_POST['register_user']))
+            {
+                $email_register = validate_email($_POST['email_register']);
+                $user_register = validate_text($_POST['user_register']);
+                $password = $_POST['password_register'];
+                $password_repeat = $_POST['password_register_repeat'];
+    
+                registerUser($email_register, $password, $password_repeat, $user_register, 2);
+            }
+            elseif(isset($_POST['register_colaborator']))
+            {
+                $email_register_colaborator = validate_email($_POST['email_register_colaborator']);
+                $user_register_colaborator = validate_text($_POST['user_register_colaborator']);
+                $password_colaborator = $_POST['password_register_colaborator'];
+                $password_repeat_colaborator = $_POST['password_repeat_register_colaborator'];
+    
+                registerUser($email_register_colaborator, $password_colaborator, $password_repeat_colaborator, $user_register_colaborator, 3);
+            }
+        }
+    ?>
+
     <!--barra de navegación-->
     <nav class="navbar navbar-expand-md navbar-dark" style="background-color:#041721; font-size: 18px;">
         <!--clase responsive-->
@@ -243,13 +273,6 @@
                     </table>
                 </div>
 
-
-                <?php
-                    if($_SERVER['REQUEST_METHOD'] == 'POST')
-                    {
-                        echo $_POST['td'];
-                    }
-                ?>
                 <div id="usuarios" class="admin-container" style="display: none;">
                     <h3>Datos de usuarios</h3>
 
@@ -286,7 +309,12 @@
                                             echo "<td>" . $row["password_user"] . "</td>";
                                             echo "<td>" . $row["TName"] . "</td>";
                                             echo "<td> <a href='#' class='btn btn-primary'>Editar</a></td>";
-                                            echo "<td> <button type='submit' name='eliminar_user' class='btn btn-primary'>Registrar</button>";
+                                            echo "<td>";
+                                            echo "<form action='admin.php' method='post'>";
+                                            echo "<input type='hidden' name='user' value='" . $row["user_name"] . "'>";
+                                            echo "<button type='submit' name='delete_user' class='btn btn-danger'>Eliminar</button>";
+                                            echo "</form>";
+                                            echo "</td>";
                                             echo "</tr>";
                                             $i++;
                                         }
@@ -306,7 +334,7 @@
                                 <div class="modal-body">
 
                                 <!--Formulario Usuarios-->
-                                    <form action="register.php" method="post">
+                                    <form action="admin.php" method="post">
                                         <div class="mb-3">
                                             <label for="exampleInputEmail1" class="form-label">Usuario:</label>
                                             <input type="text" name = "user_register" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
@@ -372,7 +400,12 @@
                                         echo "<td>" . $row["password_user"] . "</td>";
                                         echo "<td>" . $row["TName"] . "</td>";
                                         echo "<td> <a href='#' class='btn btn-primary'>Editar</a></td>";
-                                        echo "<td> <a href='#' class='btn btn-danger'>Eliminar</a></td>";
+                                        echo "<td>";
+                                        echo "<form action='admin.php' method='post'>";
+                                        echo "<input type='hidden' name='user' value='" . $row["user_name"] . "'>";
+                                        echo "<button type='submit' name='delete_user' class='btn btn-danger'>Eliminar</button>";
+                                        echo "</form>";
+                                        echo "</td>";
                                         echo "</tr>";
                                         $i++;
                                     }
@@ -382,7 +415,7 @@
                     </table>
 
                     <!--Modal Colaboradores-->
-                    <form action = "register.php" method="post">
+                    <form action = "admin.php" method="post">
                         <div id="Añadir_Colaborador" class="modal" tabindex="-1">
                             <div class="modal-dialog">
                                 <div class="modal-content">

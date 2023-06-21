@@ -210,7 +210,7 @@
 
             <!--Contenedor principal de formularios-->
             <div class="col py-5">
-                <div id="juegos" class="admin-container" style="display: none;">
+                <div id="juegos" class="admin-container">
                     <h3>Datos de juegos</h3>
 
                     <button type="button" class="btn btn-outline-success">Añadir</button>

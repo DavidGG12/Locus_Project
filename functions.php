@@ -14,19 +14,39 @@
 
         $username = 'C##dokx';
         $password = 'show16ME890';
-
         return $con = new PDO("oci:dbname=".$tns, $username, $password);
+
     }
 
     function connectionMySQL()
     {
-        $servername = "b6rzpd5jmxzxv6hux5yf-mysql.services.clever-cloud.com";
-        $user = "unvt0coqmwyxy2pq";
-        $password = "dAyf3jUN2wWWJg0U8xuz";
-        $database = "b6rzpd5jmxzxv6hux5yf";
-        //COLOCAR UN IF PARA MANDAR A OTRA PÁGINA DE ERROR POR SI NO CONCETA CON LA BASE DE DATOS
-        
-        return $con = new mysqli($servername, $user, $password, $database);
+        try
+        {
+            $tns = "
+                (DESCRIPTION =
+                    (ADDRESS_LIST =
+                        (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
+                    )
+                    (CONNECT_DATA =
+                        (SERVICE_NAME = xe)
+                    )
+                )
+            ";
+
+            $username = 'C##dokx';
+            $password = 'show16ME890';
+            return $con = new PDO("oci:dbname=".$tns, $username, $password);
+        }
+        catch(Exception $e)
+        {
+            $servername = "b6rzpd5jmxzxv6hux5yf-mysql.services.clever-cloud.com";
+            $user = "unvt0coqmwyxy2pq";
+            $password = "dAyf3jUN2wWWJg0U8xuz";
+            $database = "b6rzpd5jmxzxv6hux5yf";
+            //COLOCAR UN IF PARA MANDAR A OTRA PÁGINA DE ERROR POR SI NO CONCETA CON LA BASE DE DATOS
+            
+            return $con = new mysqli($servername, $user, $password, $database);
+        }
     } 
 
     function connectionClose($con)

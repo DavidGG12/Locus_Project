@@ -233,7 +233,7 @@
                         <tbody>
                             <?php
                             // Conexión a la base de datos
-                            $con = connection();
+                            $con = connectionMySQL();
                             $i = 1;
 
                             // Consulta para obtener los datos de la tabla
@@ -290,7 +290,7 @@
                             </thead>
                             <tbody>
                                 <?php
-                                    $con = connection();
+                                    $con = connectionMySQL();
 
                                     //Obtener los datos de la tabla y el tipo con un inner join
                                     $query = "SELECT id_user, email, user_name, password_user, TName FROM user_ INNER JOIN type_ on user_.type_user = type_.id_Type WHERE TName = 'USER'";
@@ -381,7 +381,7 @@
                         </thead>
                         <tbody>
                             <?php
-                                $con = connection();
+                                $con = connectionMySQL();
 
                                 //Obtener los datos de la tabla y el tipo con un inner join
                                 $query = "SELECT id_user, email, user_name, password_user, TName FROM user_ INNER JOIN type_ on user_.type_user = type_.id_Type WHERE TName = 'ADMIN' OR TName = 'COLABORATOR'";

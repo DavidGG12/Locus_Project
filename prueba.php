@@ -10,8 +10,8 @@ $tns = "
     )
 ";
 
-$username = 'sys as SYSDBA';
-$password = 'show16ME';
+$username = 'C##dokx';
+$password = 'show16ME890';
 
 try {
     $dbh = new PDO("oci:dbname=".$tns, $username, $password);

@@ -1,7 +1,7 @@
 <?php
     include_once('functions.php');
     
-    $con = connection();
+    $con = connectionMySQL();
     $error = '';
     
     if($_SERVER["REQUEST_METHOD"] == "POST")

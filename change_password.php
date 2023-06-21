@@ -26,7 +26,7 @@
             
             if(isset($_POST["login"]))
             {
-                $con = connection();
+                $con = connectionMySQL();
 
                 if($_SERVER["REQUEST_METHOD"] == "POST")
                 {

@@ -1,5 +1,24 @@
 <?php
-    function connection()
+    function connectionOracle()
+    {
+        $tns = "
+            (DESCRIPTION =
+                (ADDRESS_LIST =
+                    (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
+                )
+                (CONNECT_DATA =
+                    (SERVICE_NAME = xe)
+                )
+            )
+        ";
+
+        $username = 'C##dokx';
+        $password = 'show16ME890';
+
+        return $con = new PDO("oci:dbname=".$tns, $username, $password);
+    }
+
+    function connectionMySQL()
     {
         $servername = "b6rzpd5jmxzxv6hux5yf-mysql.services.clever-cloud.com";
         $user = "unvt0coqmwyxy2pq";
@@ -69,7 +88,7 @@
 
     function registerUser($email_register, $password_register, $password_repeat, $user_register, $type)
     {
-        $con = connection();
+        $con = connectionMySQL();
 
         $research = "SELECT user_name FROM user_ WHERE user_name = '$user_register' OR email = '$email_register'";
         $result = $con->query($research);
@@ -107,7 +126,7 @@
 
     function deleteUser($user)
     {
-        $con = connection();
+        $con = connectionMySQL();
 
         $research = "DELETE FROM user_ WHERE user_name = '$user'";
         $execute = $con->query($research);

@@ -55,16 +55,17 @@
                     $con = connection();
                     $user = getSession();
                     
-                    $research = "SELECT type_user FROM user_ WHERE user_name = '$user';";
+                    $research = "SELECT TYPE_USER FROM user_ WHERE user_name = '$user'";
                     $result = $con -> query($research);
-                    $type = mysqli_fetch_assoc($result);
-                    if($result -> num_rows == 1)
+
+                    if($row = $result->fetch(PDO::FETCH_ASSOC))
                     {
-                      if($type['type_user'] == 1 || $type['type_user'] == 3)
+                      $type = $row['TYPE_USER'];
+                      if($type == 1 || $type == 3)
                       {
                         echo "<a class='nav-link' style='font-family: 'Oswald', sans-serif; font-size: 20px;' href='admin.php'>$user</a>";
                       }
-                      elseif($type['type_user'] == 2)
+                      elseif($type == 2)
                       {
                         echo "<a class='nav-link' style='font-family: 'Oswald', sans-serif; font-size: 20px;' href=''>$user</a>";
                       }

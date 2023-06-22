@@ -237,14 +237,14 @@
                             $i = 1;
 
                             // Consulta para obtener los datos de la tabla
-                            $query = "SELECT id_game, title, subtitle, description_game, cover_image, version, storage_game, PFName, DName, CName from videogames
+                            $query = "SELECT ID_GAME, TITLE, SUBTITLE, DESCRIPTION_GAME, COVER_IMAGE, VERSION, STORAGE_GAME, PFNAME, DNAME, CNAME from videogames
 							    INNER JOIN platform on videogames.platform_games = platform.id_platform
 							    INNER JOIN developer on videogames.developer_games = developer.id_developer
 							    INNER JOIN classificaton on videogames.classification_games = classificaton.id_Classification";
-                            $result = mysqli_query($con, $query);
+                            $result = $con -> query($query);
                             
                             // Mostrar los datos en la tabla
-                            while ($row = mysqli_fetch_assoc($result)) 
+                            while ($row = $result->fetch(PDO::FETCH_ASSOC)) 
                             {
                                 echo "<tr>";
                                 echo "<td>" . $i . "</td>";
@@ -263,11 +263,6 @@
 
                                 $i++;
                             }
-                            
-
-                            // Liberar memoria y cerrar la conexión
-                            mysqli_free_result($result);
-                            mysqli_close($con);
                             ?>
                         </tbody>
                     </table>
@@ -293,31 +288,28 @@
                                     $con = connection();
 
                                     //Obtener los datos de la tabla y el tipo con un inner join
-                                    $query = "SELECT id_user, email, user_name, password_user, TName FROM user_ INNER JOIN type_ on user_.type_user = type_.id_Type WHERE TName = 'USER'";
+                                    $query = "SELECT ID_USER, EMAIL, USER_NAME, PASSWORD_USER, TNAME FROM user_ INNER JOIN type_ on user_.type_user = type_.id_Type WHERE TName = 'USER'";
                                     $result = $con -> query($query);
 
-                                    if($result -> num_rows != 0)
-                                    {
-                                        $i = 1;
+                                    $i = 1;
 
-                                        while ($row = $result->fetch_assoc()) 
-                                        {
-                                            echo "<tr>";
-                                            echo "<td>" . $i . "</td>";
-                                            echo "<td>" . $row["email"] . "</td>";
-                                            echo "<td>" . $row["user_name"] . "</td>";
-                                            echo "<td>" . $row["password_user"] . "</td>";
-                                            echo "<td>" . $row["TName"] . "</td>";
-                                            echo "<td> <a href='#' class='btn btn-primary'>Editar</a></td>";
-                                            echo "<td>";
-                                            echo "<form action='admin.php' method='post'>";
-                                            echo "<input type='hidden' name='user' value='" . $row["user_name"] . "'>";
-                                            echo "<button type='submit' name='delete_user' class='btn btn-danger'>Eliminar</button>";
-                                            echo "</form>";
-                                            echo "</td>";
-                                            echo "</tr>";
-                                            $i++;
-                                        }
+                                    while ($row = $result->fetch(PDO::FETCH_ASSOC)) 
+                                    {
+                                        echo "<tr>";
+                                        echo "<td>" . $i . "</td>";
+                                        echo "<td>" . $row["EMAIL"] . "</td>";
+                                        echo "<td>" . $row["USER_NAME"] . "</td>";
+                                        echo "<td>" . $row["PASSWORD_USER"] . "</td>";
+                                        echo "<td>" . $row["TNAME"] . "</td>";
+                                        echo "<td> <a href='#' class='btn btn-primary'>Editar</a></td>";
+                                        echo "<td>";
+                                        echo "<form action='admin.php' method='post'>";
+                                        echo "<input type='hidden' name='user' value='" . $row["USER_NAME"] . "'>";
+                                        echo "<button type='submit' name='delete_user' class='btn btn-danger'>Eliminar</button>";
+                                        echo "</form>";
+                                        echo "</td>";
+                                        echo "</tr>";
+                                        $i++;
                                     }
                                 ?>
                             </tbody>
@@ -384,31 +376,26 @@
                                 $con = connection();
 
                                 //Obtener los datos de la tabla y el tipo con un inner join
-                                $query = "SELECT id_user, email, user_name, password_user, TName FROM user_ INNER JOIN type_ on user_.type_user = type_.id_Type WHERE TName = 'ADMIN' OR TName = 'COLABORATOR'";
+                                $query = "SELECT ID_USER, EMAIL, USER_NAME, PASSWORD_USER, TNAME FROM user_ INNER JOIN type_ on user_.type_user = type_.id_Type WHERE TName = 'ADMIN' OR TName = 'COLABORATOR'";
                                 $result = $con -> query($query);
 
-                                if($result -> num_rows != 0)
+                                while ($row = $result->fetch(PDO::FETCH_ASSOC)) 
                                 {
-                                    $i = 1;
-
-                                    while ($row = $result->fetch_assoc()) 
-                                    {
-                                        echo "<tr>";
-                                        echo "<td>" . $i . "</td>";
-                                        echo "<td>" . $row["email"] . "</td>";
-                                        echo "<td>" . $row["user_name"] . "</td>";
-                                        echo "<td>" . $row["password_user"] . "</td>";
-                                        echo "<td>" . $row["TName"] . "</td>";
-                                        echo "<td> <a href='#' class='btn btn-primary'>Editar</a></td>";
-                                        echo "<td>";
-                                        echo "<form action='admin.php' method='post'>";
-                                        echo "<input type='hidden' name='user' value='" . $row["user_name"] . "'>";
-                                        echo "<button type='submit' name='delete_user' class='btn btn-danger'>Eliminar</button>";
-                                        echo "</form>";
-                                        echo "</td>";
-                                        echo "</tr>";
-                                        $i++;
-                                    }
+                                    echo "<tr>";
+                                    echo "<td>" . $i . "</td>";
+                                    echo "<td>" . $row["EMAIL"] . "</td>";
+                                    echo "<td>" . $row["USER_NAME"] . "</td>";
+                                    echo "<td>" . $row["PASSWORD_USER"] . "</td>";
+                                    echo "<td>" . $row["TNAME"] . "</td>";
+                                    echo "<td> <a href='#' class='btn btn-primary'>Editar</a></td>";
+                                    echo "<td>";
+                                    echo "<form action='admin.php' method='post'>";
+                                    echo "<input type='hidden' name='user' value='" . $row["USER_NAME"] . "'>";
+                                    echo "<button type='submit' name='delete_user' class='btn btn-danger'>Eliminar</button>";
+                                    echo "</form>";
+                                    echo "</td>";
+                                    echo "</tr>";
+                                    $i++;
                                 }
                             ?>
                         </tbody>

@@ -26,7 +26,7 @@
             $database = "b6rzpd5jmxzxv6hux5yf";
             //COLOCAR UN IF PARA MANDAR A OTRA PÁGINA DE ERROR POR SI NO CONCETA CON LA BASE DE DATOS
             
-            return $con = new mysqli($servername, $user, $password, $database);
+            return $con = new PDO("mysql:host=$servername;dbname=$database", $user, $password);
         }
     } 
 

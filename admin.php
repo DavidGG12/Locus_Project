@@ -238,9 +238,9 @@
 
                             // Consulta para obtener los datos de la tabla
                             $query = "SELECT ID_GAME, TITLE, SUBTITLE, DESCRIPTION_GAME, COVER_IMAGE, VERSION, STORAGE_GAME, PFNAME, DNAME, CNAME from videogames
-							    INNER JOIN platform on videogames.platform_games = platform.id_platform
-							    INNER JOIN developer on videogames.developer_games = developer.id_developer
-							    INNER JOIN classificaton on videogames.classification_games = classificaton.id_Classification";
+							    INNER JOIN platform on videogames.PLATFORM_GAMES = platform.ID_PLATFORM
+							    INNER JOIN developer on videogames.DEVELOPER_GAMES = developer.ID_DEVELOPER
+							    INNER JOIN classificaton on videogames.CLASSIFICATION_GAMES = classificaton.ID_CLASSIFICATION";
                             $result = $con -> query($query);
                             
                             // Mostrar los datos en la tabla

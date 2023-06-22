@@ -52,7 +52,7 @@
                 <?php elseif(isset($_COOKIE['user'])): ?>
                   <!--COLOCAR UN IF PARA QUE, CUANDO SEA ADMIN Y TOQUE SU NOMBRE LO DIRIJA A LA PÁGINA DE ADMIN, MIENTRAS QUE EL USUARIO NORMAL, LO DIRIJA A SU PERFIL-->
                   <?php 
-                    $con = connectionMySQL();
+                    $con = connection();
                     $user = getSession();
                     
                     $research = "SELECT type_user FROM user_ WHERE user_name = '$user';";

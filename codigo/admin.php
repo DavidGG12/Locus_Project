@@ -68,7 +68,7 @@
 
 			<?php
 				require ('functions.php');
-				$con = connectionMySQL();
+				$con = connection();
 
 				// Obtener los datos de la tabla
 				$sql = "SELECT id_game, title, subtitle, description_game, cover_image, version, storage_game, PFName, DName, CName from videogames
@@ -137,7 +137,7 @@
 	<h3>Datos de usuarios</h3>
 			<?php
 				
-				$con = connectionMySQL();
+				$con = connection();
 				// Obtener los datos de la tabla
 				$sql = "SELECT id_user, email, user_name, password_user, TName FROM user_ INNER JOIN type_ on user_.type_user = type_.id_Type WHERE TName = 'USER'";
 				$result = $con->query($sql);
@@ -189,7 +189,7 @@
 	<h3>Datos de colaboradores</h3>
 			<?php
 				
-				$con = connectionMySQL();
+				$con = connection();
 				// Obtener los datos de la tabla
 				$sql = "SELECT id_user, email, user_name, password_user, TName FROM user_ INNER JOIN type_ on user_.type_user = type_.id_Type WHERE TName != 'USER'";
 				$result = $con->query($sql);

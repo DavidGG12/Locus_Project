@@ -1,24 +1,5 @@
 <?php
-    function connectionOracle()
-    {
-        $tns = "
-            (DESCRIPTION =
-                (ADDRESS_LIST =
-                    (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
-                )
-                (CONNECT_DATA =
-                    (SERVICE_NAME = xe)
-                )
-            )
-        ";
-
-        $username = 'C##dokx';
-        $password = 'show16ME890';
-        return $con = new PDO("oci:dbname=".$tns, $username, $password);
-
-    }
-
-    function connectionMySQL()
+    function connection()
     {
         try
         {
@@ -108,7 +89,7 @@
 
     function registerUser($email_register, $password_register, $password_repeat, $user_register, $type)
     {
-        $con = connectionMySQL();
+        $con = connection();
 
         $research = "SELECT user_name FROM user_ WHERE user_name = '$user_register' OR email = '$email_register'";
         $result = $con->query($research);
@@ -146,7 +127,7 @@
 
     function deleteUser($user)
     {
-        $con = connectionMySQL();
+        $con = connection();
 
         $research = "DELETE FROM user_ WHERE user_name = '$user'";
         $execute = $con->query($research);

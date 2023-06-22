@@ -1,8 +1,4 @@
 <?php
-
-    global $oracle;
-
-    $oracle = false;
     function connection()
     {
         try

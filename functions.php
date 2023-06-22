@@ -1,4 +1,8 @@
 <?php
+
+    global $oracle;
+
+    $oracle = false;
     function connection()
     {
         try
@@ -16,6 +20,7 @@
 
             $username = 'C##dokx';
             $password = 'show16ME890';
+            setcookie('connection', true, time() + 120, '/');
             return $con = new PDO("oci:dbname=".$tns, $username, $password);
         }
         catch(Exception $e)
@@ -25,15 +30,11 @@
             $password = "dAyf3jUN2wWWJg0U8xuz";
             $database = "b6rzpd5jmxzxv6hux5yf";
             //COLOCAR UN IF PARA MANDAR A OTRA PÁGINA DE ERROR POR SI NO CONCETA CON LA BASE DE DATOS
-            
+            setcookie('connection', false, time() + 120, '/');
+
             return $con = new PDO("mysql:host=$servername;dbname=$database", $user, $password);
         }
     } 
-
-    function connectionClose($con)
-    {
-        $con -> close();
-    }
 
     function validate_text($text)
     {
@@ -84,6 +85,7 @@
 
     function destroySession($user)
     {
+        setcookie('connection', true, time() - 120, '/');
         setcookie('user', $user, time() - 60 * 60 * 24 * 30, '/');
     }
 
@@ -94,7 +96,7 @@
         $research = "SELECT user_name FROM user_ WHERE user_name = '$user_register' OR email = '$email_register'";
         $result = $con->query($research);
 
-        if($result->num_rows == 1)
+        if($result->rowCount() == 1)
         {
             echo "<script>alert('Usuario ya existente');</script>";
         }
@@ -113,9 +115,33 @@
         {
             try
             {
-                $research = "INSERT INTO user_ (email, user_name, password_user, type_user) VALUES ('$email_register', '$user_register', '$password_register', '$type')";
-                $result = $con->query($research);
-                echo "<script>alert('Registrado con éxito')</script>";
+                if($_COOKIE['connection'] = false)
+                {
+                    $research = "INSERT INTO user_ (email, user_name, password_user, type_user) VALUES ('$email_register', '$user_register', '$password_register', '$type')";
+                    $result = $con->query($research);
+                    echo "<script>alert('Registrado con éxito')</script>";
+                }
+                elseif($_COOKIE['connection'] = true)
+                {
+                    $research = "SELECT COUNT(*) FROM user_ ";
+                    $result = $con->query($research);
+                    $rows = $result -> fetch(PDO::FETCH_ASSOC);
+                    $id = $rows["COUNT(*)"];
+                    $id++;
+                    echo "<script>alert('PASA $id')</script>";
+                    $research = "INSERT INTO user_ VALUES ('$id', '$email_register', '$user_register', '$password_register', '$type')";
+                    $result = $con->query($research);
+
+                    // $research = "COMMIT";
+                    // $result = $con->query($research);
+                    echo "<script>alert('Registrado con éxito')</script>";
+
+                    $con = null;
+                }
+                else
+                {
+                    echo "<script>alert('Ni modo')</script>";
+                }
             }
             catch(Exception $e)
             {
@@ -129,10 +155,10 @@
     {
         $con = connection();
 
-        $research = "DELETE FROM user_ WHERE user_name = '$user'";
+        $research = "DELETE FROM user_ WHERE USER_NAME = '$user'";
         $execute = $con->query($research);
 
-        $con -> close();
+        $con = null;
 
         echo "<script>alert('Borrado con éxito')</script>";
     }

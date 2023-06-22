@@ -50,5 +50,11 @@ create table list_games(user_list int,
     foreign key (user_list) references user_(id_user),
     foreign key (games_list) references videogames(id_game));
     
+insert into type_ values(1, 'ADMIN');
+insert into type_ values(2, 'USER');
+insert into type_ values(3, 'COLABORATOR');
 
+insert into user_ values(1, 'alienx2001@hotmail.com', 'DOKX890', '12345678', 1);
+commit;
+SELECT * FROM USER_;
 

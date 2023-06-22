@@ -15,18 +15,13 @@ $password = 'show16ME890';
 
 try {
     $con = new PDO("oci:dbname=".$tns, $username, $password);
-    $research = "SELECT TYPE_USER FROM user_ WHERE user_name = 'DOKX890'";
-    $result = $con -> query($research);
-
-    if($row = $result->fetch(PDO::FETCH_ASSOC)) 
-    {
-        $type = $row['TYPE_USER'];
-        echo $type;
-    }
-    else
-    {
-        echo "no";
-    }
+    $research = "SELECT COUNT(*) FROM user_ ";
+                    $result = $con->query($research);
+                    $row = $result -> fetch(PDO::FETCH_ASSOC);
+                    $id = $row["COUNT(*)"];
+                    $id++;
+                    echo $id;
+    
 } catch (PDOException $e) {
     echo "Error de conexión: " . $e->getMessage();
 }

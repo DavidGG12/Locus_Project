@@ -9,24 +9,29 @@
         $user_login = validate_text($_POST['user_login']);
         $password = validate_text($_POST['password']);
         
-        $research = "SELECT user_name, password_user, type_user FROM user_ WHERE user_name = '$user_login' AND password_user = '$password' ;";
+        $research = "SELECT USER_NAME, PASSWORD_USER FROM user_ WHERE USER_NAME = '$user_login' AND PASSWORD_USER = '$password'";
         $result = $con -> query($research);
+        $rows = $result->fetchAll();
+        $login = count($rows);
         
-        if($result -> num_rows == 1)
+        if($login == 1)
         {
             setSession($user_login);
             
-            $row = mysqli_fetch_assoc($result);
-            if($row['type_user'] == 1)
+            $research_type = "SELECT TYPE_USER FROM user_ WHERE USER_NAME = '$user_login'";
+            $result_type = $con -> query($research_type);
+
+            $row = $result_type -> fetch(PDO::FETCH_ASSOC);
+            if($row['TYPE_USER'] == 1)
             {
-                connectionClose($con);
+                $con = null;
 
                 header("Location: admin.php");
                 exit;
             }
-            else if($row['type_user'] == 2)
+            else if($row['TYPE_USER'] == 2)
             {
-                connectionClose($con);
+                $con = null;
 
                 header("Location: index.php");
                 exit;
@@ -36,7 +41,7 @@
         {
             echo "Usuario no encontrado";
             
-            connectionClose($con);
+            $con = null;
         }
     }
     

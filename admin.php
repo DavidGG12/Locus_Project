@@ -318,38 +318,18 @@
                                         </select>
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label">Publicador:</label>
-                                        <select name="publisher_register" class="form-control">
+                                        <label class="form-label">Developer:</label>
+                                        <select name="developer_register" class="form-control">
                                         <?php
                                                 $con = connection();
 
                                                 //Obtener los datos de la tabla y el tipo con un inner join
-                                                $query = "SELECT ID_PUBLISHER, PNAME FROM publisher";
+                                                $query = "SELECT ID_DEVELOPER, DNAME FROM developer";
                                                 $result = $con -> query($query);
 
                                                 while($row = $result->fetch(PDO::FETCH_ASSOC))
                                                 {
-                                                    echo "<option vaule ='". $row['ID_PUBLISHER'] ."'>". $row['PNAME'] ."</option>";
-                                                }
-                                            ?>
-                                        </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Desarrollador:</label>
-                                        <select name="developer_register" class="form-control">
-                                        <?php
-
-                                                $con = connection();
-                                                if(isset($row['PNAME']))
-                                                {
-                                                    //Obtener los datos de la tabla y el tipo con un inner join
-                                                    $query = "SELECT ID_DEVELOPER, DNAME FROM developer WHERE PUBLISHER_DEVELOPER = '". $row['ID_PUBLISHER'] ."'";
-                                                    $result = $con -> query($query);
-    
-                                                    while($row = $result->fetch(PDO::FETCH_ASSOC))
-                                                    {
-                                                        echo "<option vaule ='". $row['ID_DEVELOPER'] ."'>". $row['DNAME'] ."</option>";
-                                                    }
+                                                    echo "<option vaule ='". $row['ID_DEVELOPER'] ."'>". $row['DNAME'] ."</option>";
                                                 }
                                             ?>
                                         </select>

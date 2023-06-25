@@ -16,7 +16,7 @@
 
             $username = 'C##dokx';
             $password = 'show16ME890';
-            setcookie('connection', true, time() + 120, '/');
+            setcookie('connection', true, time() + 120, '/', '', true, true);
             return $con = new PDO("oci:dbname=".$tns, $username, $password);
         }
         catch(Exception $e)
@@ -26,7 +26,7 @@
             $password = "dAyf3jUN2wWWJg0U8xuz";
             $database = "b6rzpd5jmxzxv6hux5yf";
             //COLOCAR UN IF PARA MANDAR A OTRA PÁGINA DE ERROR POR SI NO CONCETA CON LA BASE DE DATOS
-            setcookie('connection', false, time() + 120, '/');
+            setcookie('connection', true, time() + 120, '/', '', true, true);
 
             return $con = new PDO("mysql:host=$servername;dbname=$database", $user, $password);
         }

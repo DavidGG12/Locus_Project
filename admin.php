@@ -389,6 +389,8 @@
                                         echo "<td>" . $row["PASSWORD_USER"] . "</td>";
                                         echo "<td>" . $row["TNAME"] . "</td>";
                                         echo "<input type='hidden' name='user' id='user_name' value='" . $row["USER_NAME"] . "'>";
+                                        echo "<input type='hidden' name='email' id='email' value='" . $row["EMAIL"] . "'>";
+                                        echo "<input type='hidden' name='password' id='password' value='" . $row["PASSWORD_USER"] . "'>";
                                         echo "<td> <button type = 'button' id='btnUpdate' name='btnUpdate' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#Añadir_Usuario'>Editar</button</td>";
                                         echo "<td>";
                                         echo "<form action='admin.php' method='post'>";
@@ -437,6 +439,7 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                     <button type="button" id="register_user" class="btn btn-primary">Registrar</button>
+                                    <script src="js/ajax_user.js"></script>
                                 </div>
                             </div>
                         </div>

@@ -1,6 +1,6 @@
 <?php
 
-include("functions.php");
+include("C:/xampp/htdocs/Locus_Project/control/functions.php");
 
 $publisherID = $_GET["publisherID"];
 

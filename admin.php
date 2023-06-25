@@ -13,7 +13,7 @@
 
 <body>
     <?php
-        include("functions.php");
+        include("C:/xampp/htdocs/Locus_Project/control/functions.php");
     ?>
     <!---Funciones---->
     <script>
@@ -80,7 +80,7 @@
                     <li class="nav-item">
                         <!--COLOCAR EL LINK PARA EL CIERRE DE SESIÓN-->
                         <a class="nav-link" style="font-family: 'Oswald', sans-serif; font-size: 20px;"
-                            href="destroySession.php">Cerrar sesión</a>
+                            href="C:/xampp/htdocs/Locus_Project/control/destroySession.php">Cerrar sesión</a>
                     </li>
                 </ul>
 
@@ -388,7 +388,8 @@
                                         echo "<td>" . $row["USER_NAME"] . "</td>";
                                         echo "<td>" . $row["PASSWORD_USER"] . "</td>";
                                         echo "<td>" . $row["TNAME"] . "</td>";
-                                        echo "<td> <a href='#' class='btn btn-primary'>Editar</a></td>";
+                                        echo "<input type='hidden' name='user' id='user_name' value='" . $row["USER_NAME"] . "'>";
+                                        echo "<td> <button type = 'button' id='btnUpdate' name='btnUpdate' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#Añadir_Usuario'>Editar</button</td>";
                                         echo "<td>";
                                         echo "<form action='admin.php' method='post'>";
                                         echo "<input type='hidden' name='user' value='" . $row["USER_NAME"] . "'>";
@@ -415,20 +416,20 @@
                                 <!--Formulario Usuarios-->
                                     <form action="admin.php" method="post">
                                         <div class="mb-3">
-                                            <label for="exampleInputEmail1" class="form-label">Usuario:</label>
-                                            <input type="text" name = "user_register" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                            <label class="form-label">Usuario:</label>
+                                            <input type="text" name="user_register" id="user_modal" class="form-control" aria-describedby="emailHelp" required>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="exampleInputEmail1" class="form-label">Correo:</label>
-                                            <input type="email" name = "email_register" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                            <label class="form-label">Correo:</label>
+                                            <input type="email" name="email_register" id="email_modal" class="form-control" aria-describedby="emailHelp" required>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="exampleInputPassword1" class="form-label">Contraseña:</label>
-                                            <input type="password" name = "password_register" class="form-control" id="exampleInputPassword1" required>
+                                            <label class="form-label">Contraseña:</label>
+                                            <input type="password" name="password_register" id="password_modal" class="form-control" required>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="exampleInputPassword1" class="form-label">Repetir Contraseña:</label>
-                                            <input type="password" name = "password_repeat_register" class="form-control" id="exampleInputPassword1" required>
+                                            <label class="form-label">Repetir Contraseña:</label>
+                                            <input type="password" name="password_repeat_register" id="password_repeat_modal" class="form-control" required>
                                         </div>
                                     </form>
 

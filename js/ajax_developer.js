@@ -7,7 +7,7 @@ select_publisher.addEventListener("change", function(){
     select_developer.innerHTML = "";
     
     var petition = new XMLHttpRequest();
-    petition.open("GET", "developer_read.php?publisherID=" + publisherID);
+    petition.open("GET", "control/developer_read.php?publisherID=" + publisherID);
 
 
     petition.onload = function(){

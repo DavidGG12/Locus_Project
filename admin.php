@@ -318,22 +318,28 @@
                                         </select>
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label">Developer:</label>
-                                        <select name="developer_register" class="form-control">
+                                        <label class="form-label">Publicador:</label>
+                                        <select name="publisher_register" id="publisher_register" class="form-control">
                                         <?php
                                                 $con = connection();
 
                                                 //Obtener los datos de la tabla y el tipo con un inner join
-                                                $query = "SELECT ID_DEVELOPER, DNAME FROM developer";
+                                                $query = "SELECT ID_PUBLISHER, PNAME FROM publisher";
                                                 $result = $con -> query($query);
 
                                                 while($row = $result->fetch(PDO::FETCH_ASSOC))
                                                 {
-                                                    echo "<option vaule ='". $row['ID_DEVELOPER'] ."'>". $row['DNAME'] ."</option>";
+                                                    echo "<option vaule ='". $row['ID_PUBLISHER'] ."'>". $row['PNAME'] ."</option>";
                                                 }
                                             ?>
                                         </select>
                                     </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Desarrollador:</label>
+                                        <select name="developer_register" id="developer_register" class="form-control">
+                                        </select>
+                                    </div>
+                                    <script src="js/ajax_developer.js"></script>
                                     <div class="mb-3">
                                         <label class="form-label">Versión:</label>
                                         <input type="number" name = "version_register" class="form-control" id="exampleInputPassword1" required>

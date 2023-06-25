@@ -14,7 +14,6 @@
 <body>
     <?php
         include("functions.php");
-        //include("register.php");
     ?>
     <!---Funciones---->
     <script>
@@ -213,7 +212,7 @@
                 <div id="juegos" class="admin-container">
                     <h3>Datos de juegos</h3>
 
-                    <button type="button" class="btn btn-outline-success">Añadir</button>
+                    <button id="btnAdd" type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#Añadir_Juego">Añadir</button>
 
                     <table class="table table-hover">
                         <thead>
@@ -258,7 +257,13 @@
                                 echo "<td>" . $row["DNAME"] . "</td>";
                                 echo "<td>" . $row["CNAME"] . "</td>";
                                 echo "<td> <a href='#' class='btn btn-primary'>Editar</a></td>";
-                                echo "<td> <a href='#' class='btn btn-danger'>Eliminar</a></td>";
+                                echo "<td>";
+                                echo "<form action='admin.php' method='post'>";
+                                echo "<input type='hidden' name='title' value='" . $row["TITLE"] . "'>";
+                                echo "<input type='hidden' name='subtitle' value='" . $row["SUBTITLE"] . "'>";
+                                echo "<button type='submit' name='delete_user' class='btn btn-danger'>Eliminar</button>";
+                                echo "</form>";
+                                echo "</td>";
                                 echo "</tr>";
 
                                 $i++;
@@ -266,6 +271,102 @@
                             ?>
                         </tbody>
                     </table>
+                </div>
+
+                <div id="Añadir_Juego" class="modal" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Añadir Colaboradores: </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+
+                            <!--Formulario Juegos-->
+                                <form action="admin.php" method="post">
+                                    <div class="mb-3">
+                                        <label class="form-label">Título:</label>
+                                        <input type="text" name = "title_register" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Subtítulo:</label>
+                                        <input type="text" name = "subtitle_register" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Description:</label>
+                                        <input type="text" name = "description_register" class="form-control" id="exampleInputPassword1" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Versión:</label>
+                                        <input type="number" name = "version_register" class="form-control" id="exampleInputPassword1" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Plataforma:</label>
+                                        <select name="platform_register" class="form-control">
+                                        <?php
+                                                $con = connection();
+
+                                                //Obtener los datos de la tabla y el tipo con un inner join
+                                                $query = "SELECT ID_PLATFORM, PFNAME FROM platform";
+                                                $result = $con -> query($query);
+
+                                                while($row = $result->fetch(PDO::FETCH_ASSOC))
+                                                {
+                                                    echo "<option vaule ='". $row['ID_PLATFORM'] ."'>". $row['PFNAME'] ."</option>";
+                                                }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Publicador:</label>
+                                        <select name="publisher_register" class="form-control">
+                                        <?php
+                                                $con = connection();
+
+                                                //Obtener los datos de la tabla y el tipo con un inner join
+                                                $query = "SELECT ID_PUBLISHER, PNAME FROM publisher";
+                                                $result = $con -> query($query);
+
+                                                while($row = $result->fetch(PDO::FETCH_ASSOC))
+                                                {
+                                                    echo "<option vaule ='". $row['ID_PUBLISHER'] ."'>". $row['PNAME'] ."</option>";
+                                                }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Desarrollador:</label>
+                                        <select name="developer_register" class="form-control">
+                                        <?php
+
+                                                $con = connection();
+                                                if(isset($row['PNAME']))
+                                                {
+                                                    //Obtener los datos de la tabla y el tipo con un inner join
+                                                    $query = "SELECT ID_DEVELOPER, DNAME FROM developer WHERE PUBLISHER_DEVELOPER = '". $row['ID_PUBLISHER'] ."'";
+                                                    $result = $con -> query($query);
+    
+                                                    while($row = $result->fetch(PDO::FETCH_ASSOC))
+                                                    {
+                                                        echo "<option vaule ='". $row['ID_DEVELOPER'] ."'>". $row['DNAME'] ."</option>";
+                                                    }
+                                                }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Versión:</label>
+                                        <input type="number" name = "version_register" class="form-control" id="exampleInputPassword1" required>
+                                    </div>
+                                </form>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="button" id="register_user" class="btn btn-primary">Registrar</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div id="usuarios" class="admin-container" style="display: none;">

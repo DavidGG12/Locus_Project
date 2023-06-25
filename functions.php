@@ -124,7 +124,6 @@
                     $rows = $result -> fetch(PDO::FETCH_ASSOC);
                     $id = $rows["COUNT(*)"];
                     $id++;
-                    echo "<script>alert('PASA $id')</script>";
                     $research = "INSERT INTO user_ VALUES ('$id', '$email_register', '$user_register', '$password_register', '$type')";
                     $result = $con->query($research);
 

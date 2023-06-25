@@ -14,13 +14,8 @@ $username = 'C##dokx';
 $password = 'show16ME890';
 
 try {
-    $con = new PDO("oci:dbname=".$tns, $username, $password);
-    $research = "SELECT COUNT(*) FROM user_ ";
-                    $result = $con->query($research);
-                    $row = $result -> fetch(PDO::FETCH_ASSOC);
-                    $id = $row["COUNT(*)"];
-                    $id++;
-                    echo $id;
+    //$con = new PDO("oci:dbname=".$tns, $username, $password);
+    
     
 } catch (PDOException $e) {
     echo "Error de conexión: " . $e->getMessage();

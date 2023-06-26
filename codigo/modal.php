@@ -149,17 +149,4 @@
 
 
 
-                elseif(isset($_POST['register_videogame']))
-            {
-                $image = $_POST[$_FILES['cover_image']];
-                $title = strtoupper(validate_text($_POST['title_register']));
-                $subtitle = strtoupper(validate_text($_POST['subtitle_register']));
-                $description = strtoupper(validate_text($_POST['description_register']));
-                $version = $_POST['version_register'];
-                $storage = $_POST['storage_int'].$_POST['storage'];
-                $platform = $_POST['platform_register'];
-                $developer = $_POST['developer_register'];
-                $classification = $_POST['classification_register'];
-
-                registerVideogames(null, $image, $title, $subtitle, $description, $version, $storage, $platform, $developer, $classification);
-            }
+                

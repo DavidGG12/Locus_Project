@@ -11,12 +11,7 @@
 }
 
 body{
-    /*background: linear-gradient(
-        90deg, 
-        #c70039 25%,
-        #2d0033 73%
-    );*/
-    background-color: #aaaaaa;
+    background:  #9cc5e1;
     font-family: 'Staatliches', cursive;
     
 }
@@ -29,11 +24,6 @@ body{
 
 .back{
     padding: 3em;
-    /*background: linear-gradient(
-        90deg, 
-        #93ffa187 15%,
-        #1f2c38 85%
-    );*/
     background-color: #000;
 }
 

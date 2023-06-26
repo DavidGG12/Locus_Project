@@ -1,0 +1,57 @@
+.banner {
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.banner img{
+    width: 100%;
+}
+/* Estilos para el campo de búsqueda */
+.search {
+    display: flex;
+    align-items: center;
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+.search input[type="text"] {
+    flex: 1;
+    border: none;
+    padding: 5px;
+    font-size: 14px;
+    font-family: 'Geologica', sans-serif;
+}
+
+.search button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.search button:hover{
+    background-color: #4c6aaf;
+}
+
+/* Personalización de las pestañas */
+.nav-tabs .nav-link {
+    color: #fff; /* Cambia el color del texto de las pestañas */
+    background-color: #757575; /* Cambia el color de fondo de las pestañas */
+    border: none; /* Elimina el borde de las pestañas */
+    border-radius: 0; /* Elimina el redondeo de las esquinas de las pestañas */
+    margin-left: 1px;
+}
+.nav-tabs .nav-link:hover{
+    background-color: #041721; /* Cambia el color de fondo de las pestañas */
+}
+
+/*botones danger*/
+
+.btn .btn-danger {
+    background-color: #4c6aaf;
+}

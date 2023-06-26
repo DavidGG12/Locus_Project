@@ -1,0 +1,32 @@
+.nav .nav-link {
+    font-family: 'Oswald', sans-serif;
+    font-size: 18px;
+    color: #0a374f; /* Cambia el color del texto de las pestañas */
+    background-color: #ffffff; /* Cambia el color de fondo de las pestañas */
+    border: none; /* Elimina el borde de las pestañas */
+    border-radius: 3px; /* Elimina el redondeo de las esquinas de las pestañas */
+    margin-left: 20px;
+}
+.nav .nav-link:hover{
+    color: #ffffff;
+    background-color: #041721; /* Cambia el color de fondo de las pestañas */
+}
+.input-group{
+    font-family: 'Oswald', sans-serif;
+}
+
+.container .text-start p{
+    font-family: 'Oswald', sans-serif;
+}
+
+.uiwe{
+    background-color: #c1cbd0; 
+    font-family: 'Oswald', sans-serif;
+}
+.uiwe .text-start{
+    color: #616c72;;
+    font-size: 20px;
+    padding: 6px;
+    padding-left: 4em;
+}
+

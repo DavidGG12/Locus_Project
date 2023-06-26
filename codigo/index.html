@@ -1,9 +1,4 @@
 <!DOCTYPE html>
-
-<?php 
-  include("C:/xampp/htdocs/Locus_Project/control/functions.php");
-?>
-
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -12,41 +7,19 @@
     <title>Prueba Principal</title>
 
     <!--Icono pestaña-->
-    <link rel="icon" type="icon" href="http://localhost/Locus_Project/imagenes/LOCUS-GAME.ico">
+    <link rel="icon" type="image/png" href="/imagenes/LOCUS-GAME.ico">
 
     <!--Styles-->
-    <link rel="stylesheet" href="http://localhost/Locus_Project/estilos/principal.css">
-    <link rel="stylesheet"  href="http://localhost/Locus_Project/bootstrap/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Geologica&family=Oswald:wght@700&family=Roboto&family=Rubik+Bubbles&family=Rubik+Glitch&display=swap" rel="stylesheet">
-
-    <!--AJAX-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-      $(document).ready(function() {
-        $('#search').keyup(function() {
-          var searchValue = $(this).val();
-
-          $.ajax({
-            url: 'search.php',
-            method: 'GET',
-            data: { q: searchValue },
-            success: function(response) {
-              $('#output').html(response);
-
-              // Ocultar el elemento cuando se realiza la búsqueda
-              $('#contenedorPrincipal').hide();
-            }
-          });
-        });
-      });
-    </script>
+    <link rel="stylesheet" href="/estilos/principal.css">
+    <link rel="stylesheet"  href="/bootstrap/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Geologica&family=Oswald:wght@700&family=Roboto&family=Rubik+Bubbles&family=Rubik+Glitch&display=swap" rel="stylesheet">    
 </head>
 <body>
 <!--barra de navegación-->
 <nav class="navbar navbar-expand-md navbar-dark" style="background-color:#041721; font-size: 18px;">
   <div class="container-fluid">
     <!--icono y nombre de la página-->
-    <a class="navbar-brand" href="index.php">
+    <a class="navbar-brand" href="/pruebas/index.html">
       <span class="fs-3 " style="color: #dfe6ec; font-family: 'Rubik Bubbles', cursive;"> &nbsp; Locus Proyect</span>
     </a>
 
@@ -59,36 +32,11 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto" >
         <li class="nav-item">
-          <a class="nav-link active" style="font-family: 'Oswald', sans-serif; font-size: 20px;" aria-current="page" href="index.php">Inicio</a>
+          <a class="nav-link active" style="font-family: 'Oswald', sans-serif; font-size: 20px;" aria-current="page" href="/pruebas/index.html">Inicio</a>
         </li>
               
         <li class="nav-item">
-          <?php if(!isset($_COOKIE['user'])): ?>
-            <a class="nav-link" style="font-family: 'Oswald', sans-serif; font-size: 20px;" href="login.php">Iniciar sesión</a>
-          <?php elseif(isset($_COOKIE['user'])): ?>
-            <!--COLOCAR UN IF PARA QUE, CUANDO SEA ADMIN Y TOQUE SU NOMBRE LO DIRIJA A LA PÁGINA DE ADMIN, MIENTRAS QUE EL USUARIO NORMAL, LO DIRIJA A SU PERFIL-->
-            <?php 
-              $con = connection();
-              $user = getSession();
-              
-              $research = "SELECT TYPE_USER FROM user_ WHERE user_name = '$user'";
-              $result = $con -> query($research);
-              if($row = $result->fetch(PDO::FETCH_ASSOC))
-              {
-                $type = $row['TYPE_USER'];
-                if($type == 1 || $type == 3)
-                {
-                  echo "<a class='nav-link' style='font-family: 'Oswald', sans-serif; font-size: 20px;' href='admin.php'>$user</a>";
-                }
-                elseif($type == 2)
-                {
-                  echo "<a class='nav-link' style='font-family: 'Oswald', sans-serif; font-size: 20px;' href=''>$user</a>";
-                }
-              }
-            ?>
-          <?php else: ?>
-            <a class="nav-link" style="font-family: 'Oswald', sans-serif; font-size: 20px;" href="login.php">No mames</a>
-          <?php endif ?>
+          <a class="nav-link" style="font-family: 'Oswald', sans-serif; font-size: 20px;" href="/pruebas/sesion_prueba.html">Iniciar sesión</a>
         </li>
       </ul>
 
@@ -137,9 +85,8 @@
   </div>
 </nav>
 
-
 <!--Clase Main-->
-<main class="container min-vh-100">
+<main class="container">
 <!----Nav Opciones-->
   <div class="container bg-light-subtle m-3">
     <div class="row m-1">
@@ -152,38 +99,39 @@
       </div>
     
       <div class="col-md-4">
-        <img src="http://localhost/Locus_Project/imagenes/locus_p.png" width="100%" alt="logo locus proyect">
+        <img src="/imagenes/locus_p.png" width="100%" alt="logo locus proyect">
       </div>
 
-<!--Botón buscador-->
-<div class="col-md-4">
+      <div class="col-md-4">
         <div class="input-group mb-3">
-          <form method="POST" action="" class="d-flex">
-            <input id="search" class="form-control" type="text" name="consulta" placeholder="Buscar">
-          </form>
-          </div>
-        </div>
-      </div>
-    </div>
+              <input type="text" class="form-control" placeholder="Buscar..." aria-label="Buscar" aria-describedby="button-addon2">
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2">
+                  <i>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                      <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg>
+                  </i>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
         <hr class="hr-dashed hr-primary">
 
 <!----Carousel---->
-<div class="i" id="contenedorPrincipal">
   <div class="container m-3">
     <div id="" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img src="http://localhost/Locus_Project/imagenes/crash1.png" class="d-block w-100" alt="">
+          <img src="/imagenes/crash1.png" class="d-block w-100" alt="">
         </div>
     
         <div class="carousel-item">
-          <img src="http://localhost/Locus_Project/imagenes/mario2.png" class="d-block w-100" alt="">
+          <img src="/imagenes/mario2.png" class="d-block w-100" alt="">
         </div>
                 
         <div class="carousel-item">
-          <img src="http://localhost/Locus_Project/imagenes/Minecraft3.jpg" class="d-block w-100" alt="">
+          <img src="/imagenes/Minecraft3.jpg" class="d-block w-100" alt="">
         </div>
       </div>
     </div>
@@ -208,26 +156,7 @@
           </div>
         </div>
       </div>
-      </div>
-
-
-    <!--Contenedor de la lista de juegos-->
-      <div class="container">
-        <div class="row">
-          <div class="col-md-3"></div>
-            <div class="col-md-6">
-              <!-- Tabla de busqueda -->    
-                <div id="output"></div>
-            </div>
-          <div class="col-md-3"></div>
-        </div>
-      </div>
-
-</main>
-
-
-
-
+    </main>
       
       <!--Footer-->
       <footer class="text-center text-lg-start" style="background-color: #041721">
@@ -240,9 +169,7 @@
       </footer>
 
       <!--Scripts-->
-
-      
       <script src="/bootstrap/js/bootstrap.min.js"></script>
-      <script src="http://localhost/Locus_Project/js/jquery-3.7.0.min.js"></script>
+
 </body>
 </html>

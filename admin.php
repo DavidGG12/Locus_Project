@@ -403,9 +403,9 @@
                                         echo "<td>" . $row["USER_NAME"] . "</td>";
                                         echo "<td>" . $row["PASSWORD_USER"] . "</td>";
                                         echo "<td>" . $row["TNAME"] . "</td>";
-                                        echo "<input type='hidden' name='user' id='user_name' value='" . $row["USER_NAME"] . "'>";
-                                        echo "<input type='hidden' name='email' id='email' value='" . $row["EMAIL"] . "'>";
-                                        echo "<input type='hidden' name='password' id='password' value='" . $row["PASSWORD_USER"] . "'>";
+                                        echo "<td><input type='hidden' name='user' id='user_name' value='" . $row["USER_NAME"] . "'></td>";
+                                        echo "<td><input type='hidden' name='email' id='email' value='" . $row["EMAIL"] . "'></td>";
+                                        echo "<td><input type='hidden' name='password' id='password' value='" . $row["PASSWORD_USER"] . "'></td>";
                                         echo "<td> <button type = 'button' id='btnUpdate' name='btnUpdate' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#Actualizar_Usuario'>Editar</button</td>";
                                         echo "<td>";
                                         echo "<form action='admin.php' method='post'>";

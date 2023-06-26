@@ -27,7 +27,7 @@
           var searchValue = $(this).val();
 
           $.ajax({
-            url: 'search.php',
+            url: 'control/search.php',
             method: 'GET',
             data: { q: searchValue },
             success: function(response) {

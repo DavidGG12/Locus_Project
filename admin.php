@@ -39,6 +39,14 @@
             {
                 deleteUser($_POST['user']);
             }
+            elseif(isset($_POST['delete_videogame']))
+            {
+                $title = $_POST['title'];
+                $subtitle = $_POST['subtitle'];
+                $platform = $_POST['platform'];
+
+                deleteVideogames($title, $subtitle, $platform);
+            }
             elseif(isset($_POST['register_user']))
             {
                 $email_register = validate_email($_POST['email_register']);
@@ -51,17 +59,26 @@
             }
             elseif(isset($_POST['register_videogame']))
             {
-                $image = $_POST[$_FILES['cover_image']];
-                $title = strtoupper(validate_text($_POST['title_register']));
-                $subtitle = strtoupper(validate_text($_POST['subtitle_register']));
-                $description = strtoupper(validate_text($_POST['description_register']));
-                $version = $_POST['version_register'];
-                $storage = $_POST['storage_int'].$_POST['storage'];
-                $platform = $_POST['platform_register'];
-                $developer = $_POST['developer_register'];
-                $classification = $_POST['classification_register'];
+                if(isset($_FILES['cover_image']) && $_FILES['cover_image']['error'] === UPLOAD_ERR_OK)
+                {
+                    $name_file = $_FILES['cover_image']['name'];
+                    $tmp = $_FILES['cover_image']['tmp_name'];
 
-                registerVideogames(null, $image, $title, $subtitle, $description, $version, $storage, $platform, $developer, $classification);
+                    $title = strtoupper(validate_text($_POST['title_register']));
+                    $subtitle = strtoupper(validate_text($_POST['subtitle_register']));
+                    $description = strtoupper(validate_text($_POST['description_register']));
+                    $version = $_POST['version_register'];
+                    $storage = $_POST['storage_int'].$_POST['storage'];
+                    $platform = $_POST['platform_register'];
+                    $developer = $_POST['developer_register'];
+                    $classification = $_POST['classification_register'];
+                    
+                    registerVideogames(null, $tmp, $title, $subtitle, $description, $version, $storage, $platform, $developer, $classification);
+                }
+                else
+                {
+                    echo "Error en la imagen";
+                }
             }
             elseif(isset($_POST['register_colaborator']))
             {
@@ -276,7 +293,7 @@
                             {
                                 echo "<tr>";
                                 echo "<td>" . $i . "</td>";
-                                echo "<td><img src = ' data:image/jpg; base64,". base64_encode($row['COVER_IMAGE']) . "' height = 120, width = 100></img></td>";
+                                echo "<td><img src='data:image/jpg;base64," . base64_encode(stream_get_contents($row['COVER_IMAGE'])) . "' height='120' width='100'></td>";
                                 echo "<td>" . $row["TITLE"] . "</td>";
                                 echo "<td>" . $row["SUBTITLE"] . "</td>";
                                 echo "<td>" . $row["DESCRIPTION_GAME"] . "</td>";
@@ -290,7 +307,8 @@
                                 echo "<form action='admin.php' method='post'>";
                                 echo "<input type='hidden' name='title' value='" . $row["TITLE"] . "'>";
                                 echo "<input type='hidden' name='subtitle' value='" . $row["SUBTITLE"] . "'>";
-                                echo "<button type='submit' name='delete_user' class='btn btn-danger'>Eliminar</button>";
+                                echo "<input type='hidden' name='platform' value='" . $row["PFNAME"] . "'>";
+                                echo "<button type='submit' name='delete_videogame' class='btn btn-danger'>Eliminar</button>";
                                 echo "</form>";
                                 echo "</td>";
                                 echo "</tr>";
@@ -302,17 +320,22 @@
                     </table>
                 </div>
 
-                <div id="Añadir_Juego" class="modal" tabindex="-1">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Añadir Colaboradores: </h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
+                <!--MODAL PARA REGISTRAR JUEGOS-->
+                <form action="admin.php" method="post" enctype="multipart/form-data">
+                    <div id="Añadir_Juego" class="modal" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Añadir Colaboradores: </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
 
                             <!--Formulario Juegos-->
-                                <form action="admin.php" method="post">
+                                    <div class="input-group mb-3">
+                                        <label class="input-group-text">Imagen:</label>
+                                        <input type="file" name="cover_image" class="form-control">
+                                    </div>
                                     <div class="mb-3">
                                         <label class="form-label">Título:</label>
                                         <input type="text" name = "title_register" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
@@ -328,6 +351,14 @@
                                     <div class="mb-3">
                                         <label class="form-label">Versión:</label>
                                         <input type="number" name = "version_register" class="form-control" id="exampleInputPassword1" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Almacenamiento:</label>
+                                        <input type="number" name="storage_int" class="form-control" >
+                                        <select class="btn btn-outline-secondary dropdown-toggle" name="storage" aria-expanded="false">
+                                            <option value="MB">MB</option>
+                                            <option value="GB">GB</option>
+                                        </select>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Plataforma:</label>
@@ -370,19 +401,135 @@
                                     </div>
                                     <script src="js/ajax_developer.js"></script>
                                     <div class="mb-3">
-                                        <label class="form-label">Versión:</label>
-                                        <input type="number" name = "version_register" class="form-control" id="exampleInputPassword1" required>
+                                        <label class="form-label">Clasificación:</label>
+                                        <select name="classification_register" class="form-control">
+                                            <?php
+                                                $con = connection();
+                                                
+                                                //Obtener los datos de la tabla y el tipo con un inner join
+                                                $query = "SELECT ID_CLASSIFICATION, CNAME FROM classificaton";
+                                                $result = $con -> query($query);
+                                                
+                                                while($row = $result->fetch(PDO::FETCH_ASSOC))
+                                                {
+                                                    echo "<option vaule ='". $row['ID_CLASSIFICATION'] ."'>". $row['CNAME'] ."</option>";
+                                                }
+                                                ?>
+                                        </select>
                                     </div>
-                                </form>
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                <button type="button" id="register_user" class="btn btn-primary">Registrar</button>
+                                    
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <button type="submit" id="register_videogame" name="register_videogame" class="btn btn-primary">Registrar</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </form>
+
+                <!--MODAL PARA ACTUALIZAR JUEGOS-->
+                <form action="admin.php" method="post" enctype="multipart/form-data">
+                    <div id="Update_Juego" class="modal" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Actualizar Juegos: </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <!--Formulario Juegos-->
+                                    <div class="mb-3">
+                                        <label class="form-label">Título:</label>
+                                        <input type="text" name="title_register" class="form-control" id="title_modal" aria-describedby="emailHelp" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Subtítulo:</label>
+                                        <input type="text" name = "subtitle_register" class="form-control" id="subtitle_modal" aria-describedby="emailHelp" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Description:</label>
+                                        <input type="text" name = "description_register" class="form-control" id="description_modal" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Versión:</label>
+                                        <input type="number" name="version_register" class="form-control" id="version_modal" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Almacenamiento:</label>
+                                        <input type="number" name="storage_int" id="storage_int_modal" class="form-control" >
+                                        <select class="btn btn-outline-secondary dropdown-toggle" name="storage" id="storage_modal" aria-expanded="false">
+                                            <option value="MB">MB</option>
+                                            <option value="GB">GB</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Plataforma:</label>
+                                        <select name="platform_register" id="platform_modal" class="form-control">
+                                        <?php
+                                                $con = connection();
+
+                                                //Obtener los datos de la tabla y el tipo con un inner join
+                                                $query = "SELECT ID_PLATFORM, PFNAME FROM platform";
+                                                $result = $con -> query($query);
+
+                                                while($row = $result->fetch(PDO::FETCH_ASSOC))
+                                                {
+                                                    echo "<option vaule ='". $row['ID_PLATFORM'] ."'>". $row['PFNAME'] ."</option>";
+                                                }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Publicador:</label>
+                                        <select name="publisher_register" id="publisher_register" class="form-control">
+                                        <?php
+                                                $con = connection();
+
+                                                //Obtener los datos de la tabla y el tipo con un inner join
+                                                $query = "SELECT ID_PUBLISHER, PNAME FROM publisher";
+                                                $result = $con -> query($query);
+
+                                                while($row = $result->fetch(PDO::FETCH_ASSOC))
+                                                {
+                                                    echo "<option vaule ='". $row['ID_PUBLISHER'] ."'>". $row['PNAME'] ."</option>";
+                                                }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <!--Este select se llena con el AJAX "ajax_videogames"-->
+                                        <label class="form-label">Desarrollador:</label>
+                                        <select name="developer_register" id="developer_register" class="form-control">
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Clasificación:</label>
+                                        <select name="classification_register" class="form-control">
+                                            <?php
+                                                $con = connection();
+                                                
+                                                //Obtener los datos de la tabla y el tipo con un inner join
+                                                $query = "SELECT ID_CLASSIFICATION, CNAME FROM classificaton";
+                                                $result = $con -> query($query);
+                                                
+                                                while($row = $result->fetch(PDO::FETCH_ASSOC))
+                                                {
+                                                    echo "<option vaule ='". $row['ID_CLASSIFICATION'] ."'>". $row['CNAME'] ."</option>";
+                                                }
+                                                ?>
+                                        </select>
+                                    </div>
+                                    
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <button type="submit" id="register_videogame" name="register_videogame" class="btn btn-primary">Registrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
 
                 <div id="usuarios" class="admin-container" style="display: none;">
                     <h3>Datos de usuarios</h3>
@@ -433,7 +580,8 @@
                                 ?>
                             </tbody>
                         </table>
-                    </form>                   
+                    </form>  
+                                     
                     <!--Modal Usuarios-->
                     <form action="admin.php" method="post">
                         <div id="Añadir_Usuario" class="modal" tabindex="-1">
@@ -507,7 +655,6 @@
                                     <div class="modal-footer" id = "modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                         <button type="submit" name="update_user" id="update_user" class="btn btn-primary">Actualizar</button>
-                                        <script src="js/ajax_user.js"></script>
                                     </div>
                                 </div>
                             </div>
@@ -606,6 +753,11 @@
 
 
     <!--Scripts-->
+    <!--AJAX-->
+    <script src="js/ajax_videogames.js"></script>
+    <script src="js/ajax_user.js"></script>
+
+    <!--Bootstrap-->
     <script src="/Locus_Project/bootstrap/js/bootstrap.min.js"></script>
     <script src="/Locus_Project/bootstrap/js/bootstrap.bundle.js"></script>
     <script src="/Locus_Project/js/jquery-3.7.0.min.js"></script>

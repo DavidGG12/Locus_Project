@@ -89,7 +89,7 @@
     {
         $con = connection();
 
-        $research = "SELECT COUNT(*) FROM videogames WHERE title = '$title' AND subtitle = '$subtitle' AND platform_games = $platform";
+        $research = "SELECT COUNT(*) FROM videogames INNER JOIN platform ON videogames.platform_games = platform.id_platform WHERE title = '$title' AND subtitle = '$subtitle' AND PFNAME = '$platform'";
         $result = $con->query($research);
         $rows = $result->fetch(PDO::FETCH_ASSOC);
         $select = $rows["COUNT(*)"];
@@ -98,7 +98,7 @@
         {
             if($select != 0)
             {
-                echo "<script>alert('Juego ya existente');</script>";
+                echo "<script>alert('Juego ya existente $select');</script>";
             }
             else
             {
@@ -106,10 +106,27 @@
                 {
                     if($_COOKIE['connection'] = false)
                     {
+                        $file = fopen($image, 'rb');
+
                         $contentImage = file_get_contents($image);
                         $research = "INSERT INTO videogames (TITLE, SUBTITLE, DESCRIPTION_GAME, COVER_IMAGE, VERSION, STORAGE_GAME, PLATFORM_GAMES, DEVELOPER_GAMES, CLASSIFICATION_GAMES) 
-                            VALUES ('$title', '$subtitle', '$description', $contentImage, '$version', '$storage', $platform, $developer, $classification)";
-                        $result = $con->query($research);
+                            VALUES (:title, :subtitle, :description, :cover, :version, :storage, :platform, :developer, :classification)";
+                        $result = $con->prepare($research);
+                        $image_content = fread($file, filesize($image));
+
+                        $result->bindParam(':title', $title);
+                        $result->bindParam(':subtitle', $subtitle);
+                        $result->bindParam(':description', $description);
+                        $result->bindParam(':cover', $image_content, PDO::PARAM_LOB); // Vincular el BLOB al marcador de posición
+                        $result->bindParam(':version', $version);
+                        $result->bindParam(':storage', $storage);
+                        $result->bindParam(':platform', $platform);
+                        $result->bindParam(':developer', $developer);
+                        $result->bindParam(':classification', $classification);
+
+                        $result->execute();
+                        fclose($file);
+
                         echo "<script>alert('Registrado con éxito')</script>";
                     }
                     elseif($_COOKIE['connection'] = true)
@@ -119,13 +136,43 @@
                         $rows = $result -> fetch(PDO::FETCH_ASSOC);
                         $id = $rows["COUNT(*)"];
                         $id++;
-                        $contentImage = file_get_contents($image);
-                        $research = "INSERT INTO videogames VALUES ($id, '$title', '$subtitle', '$description', $contentImage, '$version', '$storage', $platform, $developer, $classification)";
+                        
+                        $research = "SELECT ID_PLATFORM FROM platform WHERE PFNAME = '$platform'";
                         $result = $con->query($research);
-                        echo "<script>alert('Registrado con éxito')</script>";
-        
-                        // $research = "COMMIT";
-                        // $result = $con->query($research);
+                        $rows = $result -> fetch(PDO::FETCH_ASSOC);
+                        $platform = $rows["ID_PLATFORM"];
+                        
+                        
+                        $research = "SELECT ID_CLASSIFICATION FROM classificaton WHERE CNAME = '$classification'";
+                        $result = $con->query($research);
+                        $rows = $result -> fetch(PDO::FETCH_ASSOC);
+                        $classification = $rows["ID_CLASSIFICATION"];
+                        
+                        
+                        $file = file_get_contents($image);
+                        // $file = fopen($image, 'rb');
+                        // $image_content = fread($file, filesize($image));
+                        // fclose($file);
+                        
+                        $research = "INSERT INTO videogames 
+                            VALUES (:id, :title, :subtitle, :description, :cover, :version, :storage, :platform, :developer, :classification)";
+                        
+                        $result = $con->prepare($research);
+                        $result->bindParam(':id', $id);
+                        $result->bindParam(':title', $title);
+                        $result->bindParam(':subtitle', $subtitle);
+                        $result->bindParam(':description', $description);
+                        $result->bindParam(':cover', $image_content, PDO::PARAM_LOB); // Vincular el BLOB al marcador de posición
+                        $result->bindParam(':version', $version);
+                        $result->bindParam(':storage', $storage);
+                        $result->bindParam(':platform', $platform);
+                        $result->bindParam(':developer', $developer);
+                        $result->bindParam(':classification', $classification);
+                        echo "<script>alert('11');</script>";
+                        
+                        $result->execute();
+                        echo "<script>alert('12');</script>";
+
                         echo "<script>alert('Registrado con éxito')</script>";
         
                         $con = null;
@@ -142,6 +189,23 @@
                 }
             }
         }
+    }
+
+    function deleteVideogames($title, $subtitle, $platform)
+    {
+        $con = connection();
+
+        $research = "SELECT ID_PLATFORM FROM platform WHERE PFNAME = '$platform'";
+        $result = $con->query($research);
+        $rows = $result->fetch(PDO::FETCH_ASSOC);
+        $platform = $rows["ID_PLATFORM"];
+
+        $research = "DELETE FROM videogames WHERE TITLE = '$title' AND SUBTITLE = '$subtitle' AND PLATFORM_GAMES = $platform";
+        $execute = $con->query($research);
+
+        $con = null;
+
+        echo "<script>alert('Borrado con éxito');</script>";
     }
 
     function registerUser($last_user, $email_register, $password_register, $password_repeat, $user_register, $type, $update)

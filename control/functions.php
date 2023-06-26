@@ -85,21 +85,23 @@
         setcookie('user', $user, time() - 60 * 60 * 24 * 30, '/');
     }
 
-    function registerUser($email_register, $password_register, $password_repeat, $user_register, $type)
+    function registerUser($last_user, $email_register, $password_register, $password_repeat, $user_register, $type, $update)
     {
         $con = connection();
 
-        $research = "SELECT user_name FROM user_ WHERE user_name = '$user_register' OR email = '$email_register'";
+        $research = "SELECT COUNT(*) FROM user_ WHERE user_name = '$user_register' OR email = '$email_register'";
         $result = $con->query($research);
+        $rows = $result->fetch(PDO::FETCH_ASSOC);
+        $select = $rows["COUNT(*)"];
 
-        if($result->rowCount() == 1)
+        if($rows["COUNT(*)"] != 0)
         {
             echo "<script>alert('Usuario ya existente');</script>";
         }
         
         else if(strcasecmp($password_register, $password_repeat))
         {
-            echo "<script>alert('Contraseñas no coinciden');</script>";
+            echo "<script>alert('Contraseñas no coinciden $user_register');</script>";
         }
         
         else if(!validate_password($password_register))
@@ -111,31 +113,42 @@
         {
             try
             {
-                if($_COOKIE['connection'] = false)
+                if(!$update)
                 {
-                    $research = "INSERT INTO user_ (email, user_name, password_user, type_user) VALUES ('$email_register', '$user_register', '$password_register', '$type')";
-                    $result = $con->query($research);
-                    echo "<script>alert('Registrado con éxito')</script>";
+                    if($_COOKIE['connection'] = false)
+                    {
+                        $research = "INSERT INTO user_ (email, user_name, password_user, type_user) VALUES ('$email_register', '$user_register', '$password_register', '$type')";
+                        $result = $con->query($research);
+                        echo "<script>alert('Registrado con éxito')</script>";
+                    }
+                    elseif($_COOKIE['connection'] = true)
+                    {
+                        $research = "SELECT COUNT(*) FROM user_ ";
+                        $result = $con->query($research);
+                        $rows = $result -> fetch(PDO::FETCH_ASSOC);
+                        $id = $rows["COUNT(*)"];
+                        $id++;
+                        $research = "INSERT INTO user_ VALUES ('$id', '$email_register', '$user_register', '$password_register', '$type')";
+                        $result = $con->query($research);
+    
+                        // $research = "COMMIT";
+                        // $result = $con->query($research);
+                        echo "<script>alert('Registrado con éxito')</script>";
+    
+                        $con = null;
+                    }
+                    else
+                    {
+                        echo "<script>alert('Ni modo')</script>";
+                    }
                 }
-                elseif($_COOKIE['connection'] = true)
+                elseif($update)
                 {
-                    $research = "SELECT COUNT(*) FROM user_ ";
+                    $research = "UPDATE user_ SET EMAIL = '$email_register', USER_NAME = '$user_register', PASSWORD_USER = '$password_register' WHERE USER_NAME = '$last_user'";
                     $result = $con->query($research);
-                    $rows = $result -> fetch(PDO::FETCH_ASSOC);
-                    $id = $rows["COUNT(*)"];
-                    $id++;
-                    $research = "INSERT INTO user_ VALUES ('$id', '$email_register', '$user_register', '$password_register', '$type')";
-                    $result = $con->query($research);
-
-                    // $research = "COMMIT";
-                    // $result = $con->query($research);
-                    echo "<script>alert('Registrado con éxito')</script>";
-
+                    echo "<script>alert('Actualizado con éxito $last_user')</script>";
+    
                     $con = null;
-                }
-                else
-                {
-                    echo "<script>alert('Ni modo')</script>";
                 }
             }
             catch(Exception $e)

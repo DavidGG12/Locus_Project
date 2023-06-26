@@ -1,5 +1,5 @@
 <?php
-    include_once('functions.php');
+    include("C:/xampp/htdocs/Locus_Project/control/functions.php");
     
     $con = connection();
     $error = '';
@@ -39,7 +39,7 @@
         }
         else
         {
-            echo "Usuario no encontrado";
+            echo "Usuario no encontrado $user_login";
             
             $con = null;
         }

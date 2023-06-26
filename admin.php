@@ -33,6 +33,8 @@
 
         if($_SERVER['REQUEST_METHOD'] == 'POST')
         {
+            $update = false;
+
             if(isset($_POST['delete_user']))
             {
                 deleteUser($_POST['user']);
@@ -42,9 +44,10 @@
                 $email_register = validate_email($_POST['email_register']);
                 $user_register = validate_text($_POST['user_register']);
                 $password = $_POST['password_register'];
-                $password_repeat = $_POST['password_register_repeat'];
+                $password_repeat = $_POST['password_repeat_register'];
     
-                registerUser($email_register, $password, $password_repeat, $user_register, 2);
+
+                registerUser(null, $email_register, $password, $password_repeat, $user_register, 2, $update);
             }
             elseif(isset($_POST['register_colaborator']))
             {
@@ -52,8 +55,20 @@
                 $user_register_colaborator = validate_text($_POST['user_register_colaborator']);
                 $password_colaborator = $_POST['password_register_colaborator'];
                 $password_repeat_colaborator = $_POST['password_repeat_register_colaborator'];
+                
+                registerUser(null, $email_register_colaborator, $password_colaborator, $password_repeat_colaborator, $user_register_colaborator, 3, $update);
+            }
+            elseif(isset($_POST['update_user']))
+            {
+                $last_user = $_POST['last_user'];
+                $email_register_colaborator = validate_email($_POST['email_update']);
+                $user_register_colaborator = validate_text($_POST['user_update']);
+                $password_colaborator = $_POST['password_update'];
+                $password_repeat_colaborator = $_POST['password_repeat_update'];
     
-                registerUser($email_register_colaborator, $password_colaborator, $password_repeat_colaborator, $user_register_colaborator, 3);
+                $update = true;
+
+                registerUser($last_user, $email_register_colaborator, $password_colaborator, $password_repeat_colaborator, $user_register_colaborator, 2, $update);
             }
         }
     ?>
@@ -391,7 +406,7 @@
                                         echo "<input type='hidden' name='user' id='user_name' value='" . $row["USER_NAME"] . "'>";
                                         echo "<input type='hidden' name='email' id='email' value='" . $row["EMAIL"] . "'>";
                                         echo "<input type='hidden' name='password' id='password' value='" . $row["PASSWORD_USER"] . "'>";
-                                        echo "<td> <button type = 'button' id='btnUpdate' name='btnUpdate' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#Añadir_Usuario'>Editar</button</td>";
+                                        echo "<td> <button type = 'button' id='btnUpdate' name='btnUpdate' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#Actualizar_Usuario'>Editar</button</td>";
                                         echo "<td>";
                                         echo "<form action='admin.php' method='post'>";
                                         echo "<input type='hidden' name='user' value='" . $row["USER_NAME"] . "'>";
@@ -406,44 +421,84 @@
                         </table>
                     </form>                   
                     <!--Modal Usuarios-->
-                    <div id="Añadir_Usuario" class="modal" tabindex="-1">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Añadir Colaboradores: </h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
+                    <form action="admin.php" method="post">
+                        <div id="Añadir_Usuario" class="modal" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Añadir Colaboradores: </h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
 
                                 <!--Formulario Usuarios-->
-                                    <form action="admin.php" method="post">
                                         <div class="mb-3">
                                             <label class="form-label">Usuario:</label>
-                                            <input type="text" name="user_register" id="user_modal" class="form-control" aria-describedby="emailHelp" required>
+                                            <input type="text" name="user_register" class="form-control" aria-describedby="emailHelp" required>
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Correo:</label>
-                                            <input type="email" name="email_register" id="email_modal" class="form-control" aria-describedby="emailHelp" required>
+                                            <input type="email" name="email_register"  class="form-control" aria-describedby="emailHelp" required>
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Contraseña:</label>
-                                            <input type="password" name="password_register" id="password_modal" class="form-control" required>
+                                            <input type="password" name="password_register" class="form-control" required>
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Repetir Contraseña:</label>
-                                            <input type="password" name="password_repeat_register" id="password_repeat_modal" class="form-control" required>
+                                            <input type="password" name="password_repeat_register" class="form-control" required>
                                         </div>
-                                    </form>
-
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                    <button type="button" id="register_user" class="btn btn-primary">Registrar</button>
-                                    <script src="js/ajax_user.js"></script>
+                                        
+                                    </div>
+                                    <div class="modal-footer" id = "modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="submit" id="register_user" name="register_user" class="btn btn-primary">Registrar</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
+
+                    <!--MODAL USUARIOS ACTUALIZAR-->
+                    <form action="admin.php" method="post">
+                        <div id="Actualizar_Usuario" class="modal" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Actualizar Usuarios: </h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+
+                                    <!--Formulario Usuarios-->
+                                    <div class="mb-3">
+                                                <input type="hidden" id="last_user" name="last_user">
+                                                <label class="form-label">Usuario:</label>
+                                                <input type="text" name="user_update" id="user_modal" class="form-control" aria-describedby="emailHelp" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Correo:</label>
+                                                <input type="email" name="email_update" id="email_modal" class="form-control" aria-describedby="emailHelp" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Contraseña:</label>
+                                                <input type="password" name="password_update" id="password_modal" class="form-control" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Repetir Contraseña:</label>
+                                                <input type="password" name="password_repeat_update" id="password_repeat_modal" class="form-control" required>
+                                            </div>
+                                            
+                                    </div>
+                                    <div class="modal-footer" id = "modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="submit" name="update_user" id="update_user" class="btn btn-primary">Actualizar</button>
+                                        <script src="js/ajax_user.js"></script>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
 
                 </div>
 

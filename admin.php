@@ -80,6 +80,27 @@
                     echo "Error en la imagen";
                 }
             }
+            elseif(isset($_POST['register_colaborator']))
+            {
+                $email_register_colaborator = validate_email($_POST['email_register_colaborator']);
+                $user_register_colaborator = validate_text($_POST['user_register_colaborator']);
+                $password_colaborator = $_POST['password_register_colaborator'];
+                $password_repeat_colaborator = $_POST['password_repeat_register_colaborator'];
+                
+                registerUser(null, $email_register_colaborator, $password_colaborator, $password_repeat_colaborator, $user_register_colaborator, 3, $update);
+            }
+            elseif(isset($_POST['update_colaborator']))
+            {
+                $last_user_colaborator = $_POST['last_user_colaborator'];
+                $email_register_colaborator = validate_email($_POST['email_update_colaborator']);
+                $user_register_colaborator = validate_text($_POST['user_update_colaborator']);
+                $password_colaborator = $_POST['password_update_colaborator'];
+                $password_repeat_colaborator = $_POST['password_repeat_update_colaborator'];
+    
+                $update = true;
+
+                registerUser($last_user_colaborator, $email_register_colaborator, $password_colaborator, $password_repeat_colaborator, $user_register_colaborator, 2, $update);
+            }
             elseif(isset($_POST['update_videogame']))
             {
                 $title = strtoupper(validate_text($_POST['title_register']));
@@ -96,26 +117,17 @@
 
                 registerVideogames($update, null, $title, $subtitle, $description, $version, $storage, $platform, $last_platform, $developer, $classification);
             }
-            elseif(isset($_POST['register_colaborator']))
-            {
-                $email_register_colaborator = validate_email($_POST['email_register_colaborator']);
-                $user_register_colaborator = validate_text($_POST['user_register_colaborator']);
-                $password_colaborator = $_POST['password_register_colaborator'];
-                $password_repeat_colaborator = $_POST['password_repeat_register_colaborator'];
-                
-                registerUser(null, $email_register_colaborator, $password_colaborator, $password_repeat_colaborator, $user_register_colaborator, 3, $update);
-            }
             elseif(isset($_POST['update_user']))
             {
                 $last_user = $_POST['last_user'];
-                $email_register_colaborator = validate_email($_POST['email_update']);
-                $user_register_colaborator = validate_text($_POST['user_update']);
-                $password_colaborator = $_POST['password_update'];
-                $password_repeat_colaborator = $_POST['password_repeat_update'];
-    
+                $email_user = validate_email($_POST['email_update']);
+                $user_user = validate_text($_POST['user_update']);
+                $password_user = $_POST['password_update'];
+                $password_repeat = $_POST['password_repeat_update'];
+
                 $update = true;
 
-                registerUser($last_user, $email_register_colaborator, $password_colaborator, $password_repeat_colaborator, $user_register_colaborator, 2, $update);
+                registerUser($last_user, $email_user, $password_user, $password_repeat, $user_user, 3, $update);
             }
         }
     ?>
@@ -655,11 +667,11 @@
                                     <div class="mb-3">
                                                 <input type="hidden" id="last_user" name="last_user">
                                                 <label class="form-label">Usuario:</label>
-                                                <input type="text" name="user_update" id="user_modal" class="form-control" aria-describedby="emailHelp" required>
+                                                <input type="text" name="user_update" id="user_modal" class="form-control" aria-describedby="emailHelp" readonly>
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label">Correo:</label>
-                                                <input type="email" name="email_update" id="email_modal" class="form-control" aria-describedby="emailHelp" required>
+                                                <input type="email" name="email_update" id="email_modal" class="form-control" aria-describedby="emailHelp" readonly>
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label">Contraseña:</label>
@@ -713,9 +725,9 @@
                                     echo "<td>" . $row["USER_NAME"] . "</td>";
                                     echo "<td>" . $row["PASSWORD_USER"] . "</td>";
                                     echo "<td>" . $row["TNAME"] . "</td>";
-                                    echo "<td><input type='hidden' name='user_update' id='user_name_update' value='" . $row["USER_NAME"] . "'></td>";
-                                    echo "<td><input type='hidden' name='email_update' id='email_update' value='" . $row["EMAIL"] . "'></td>";
-                                    echo "<td><input type='hidden' name='password_update' id='password_update' value='" . $row["PASSWORD_USER"] . "'></td>";
+                                    echo "<td><input type='hidden' name='colaborator_user_update' id='user_name_update' value='" . $row["USER_NAME"] . "'></td>";
+                                    echo "<td><input type='hidden' name='colaborator_email_update' id='email_update' value='" . $row["EMAIL"] . "'></td>";
+                                    echo "<td><input type='hidden' name='colaborator_password_update' id='password_update' value='" . $row["PASSWORD_USER"] . "'></td>";
                                     echo "<td> <button type = 'button' id='colaborator_btnUpdate$i' name='btnUpdate' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#Actualizar_Colaborador'>Editar</button></td>";
                                     echo "<td>";
                                     echo "<form action='admin.php' method='post'>";
@@ -779,25 +791,26 @@
                                     <div class="modal-body">
                                         <!--Formulario Colaboradores-->
                                         <div class="mb-3">
+                                            <input type="hidden" name="last_user_colaborator" id="last_user_colaborator">
                                             <label class="form-label">Usuario:</label>
-                                            <input type="text" name = "user_register_colaborator" class="form-control" aria-describedby="emailHelp" required>
+                                            <input type="text" name="user_update_colaborator" id="colaborator_user_update" class="form-control" aria-describedby="emailHelp" readonly>
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Correo:</label>
-                                            <input type="email" name = "email_register_colaborator" class="form-control" aria-describedby="emailHelp" required>
+                                            <input type="email" name="email_update_colaborator" id="colaborator_email_update" class="form-control" aria-describedby="emailHelp" readonly>
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Contraseña:</label>
-                                            <input type="password" name = "password_register_colaborator" class="form-control" required>
+                                            <input type="password" name="password_update_colaborator" id="colaborator_password_update" class="form-control" required>
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Repetir Contraseña:</label>
-                                            <input type="password" name = "password_repeat_register_colaborator" class="form-control" required>
+                                            <input type="password" name="password_repeat_update_colaborator" id="colaborator_password_repeat_update" class="form-control" required>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                        <button type="submit" name="register_colaborator" class="btn btn-primary">Registrar</button>
+                                        <button type="submit" name="update_colaborator" class="btn btn-primary">Actualizar</button>
                                     </div>
                                 </div>
                             </div>
@@ -814,6 +827,7 @@
     <!--AJAX-->
     <script src="js/ajax_user.js"></script>
     <script src="js/ajax_videogames.js"></script>
+    <script src="js/ajax_colaborator.js"></script>
 
     <!--Bootstrap-->
     <script src="/Locus_Project/bootstrap/js/bootstrap.min.js"></script>

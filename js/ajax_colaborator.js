@@ -1,37 +1,29 @@
-var btnUpdate = document.querySelectorAll('[id^="btnUpdate_colaborator"]');
-
-var last_user = document.getElementById('last_user_colaborator');
-var input_user = document.getElementById('user_modal_colaborator');
-var input_email = document.getElementById('email_modal_colaborator');
-var input_password = document.getElementById('password_modal_colaborator');
-var input_password_repet = document.getElementById('password_repeat_modal_colaborator');
-
-btnUpdate.forEach(function(button) {
-
-    button.addEventListener('click', function(){
-        var row = this.closest('tr');
-        var user_name = row.querySelector('input[name="user_colaborator"]').value;
-        var email = row.querySelector('input[name="email_colaborator"]').value;
-        var password = row.querySelector('input[name="password_colaborator"]').value;
-
-        last_user.value = user_name;
-        input_user.value = user_name;
-        input_email.value = email;
-        input_password.value = password;
-        input_password_repet.value = password;
-
-        console.log(user_name);
-        
-        // var user_name = document.getElementById('user_name');
-        // var email = document.getElementById('email');
-        // var password = document.getElementById('password');
+document.addEventListener("DOMContentLoaded", function() {
+    var btnUpdate_colaborator = document.querySelectorAll('[id^="colaborator_btnUpdate"]');
     
-        // var petitions = new XMLHttpRequest();
+    var last_user_colaborator = document.getElementById('last_user_colaborator');
+    var input_user_colaborator = document.getElementById('colaborator_user_update');
+    var input_email_colaborator = document.getElementById('colaborator_email_update');
+    var input_password_colaborator = document.getElementById('colaborator_password_update');
+    var input_password_repet_colaborator = document.getElementById('colaborator_password_repeat_update');
     
-        // last_user.value = user_name.value;
-        // input_user.value = user_name.value;
-        // input_email.value = email.value;
-        // input_password.value = password.value;
-        // input_password_repet.value = password.value;
+    
+    //DATOS DE LOS COLABORADORES
+    btnUpdate_colaborator.forEach(function(button_colaborator) {
+        button_colaborator.addEventListener('click', function(){
+            var row_colaborator = this.closest('tr');
+            var user_name = row_colaborator.querySelector('input[name="colaborator_user_update"]').value;
+            var email = row_colaborator.querySelector('input[name="colaborator_email_update"]').value;
+            var password = row_colaborator.querySelector('input[name="colaborator_password_update"]').value;
+    
+            last_user_colaborator.value = user_name;
+            input_user_colaborator.value = user_name;
+            input_email_colaborator.value = email;
+            input_password_colaborator.value = password;
+            input_password_repet_colaborator.value = password;
+    
+            console.log(user_name);
+        });
     });
 });
+

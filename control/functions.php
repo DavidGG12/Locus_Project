@@ -328,7 +328,9 @@
             
             else
             {
+                // echo "<script>alert('1.2')</script>";
                 $research = "UPDATE user_ SET EMAIL = '$email_register', USER_NAME = '$user_register', PASSWORD_USER = '$password_register' WHERE USER_NAME = '$last_user'";
+                // echo "<script>alert('2.2')</script>";
                 $result = $con->query($research);
                 echo "<script>alert('Actualizado con éxito $last_user')</script>";
         

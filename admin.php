@@ -559,20 +559,20 @@
                                     <div class="modal-body">
                                         <!--Formulario Colaboradores-->
                                         <div class="mb-3">
-                                            <label for="exampleInputEmail1" class="form-label">Usuario:</label>
-                                            <input type="text" name = "user_register_colaborator" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                            <label class="form-label">Usuario:</label>
+                                            <input type="text" name = "user_register_colaborator" class="form-control" aria-describedby="emailHelp" required>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="exampleInputEmail1" class="form-label">Correo:</label>
-                                            <input type="email" name = "email_register_colaborator" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                            <label class="form-label">Correo:</label>
+                                            <input type="email" name = "email_register_colaborator" class="form-control" aria-describedby="emailHelp" required>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="exampleInputPassword1" class="form-label">Contraseña:</label>
-                                            <input type="password" name = "password_register_colaborator" class="form-control" id="exampleInputPassword1" required>
+                                            <label class="form-label">Contraseña:</label>
+                                            <input type="password" name = "password_register_colaborator" class="form-control" required>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="exampleInputPassword1" class="form-label">Repetir Contraseña:</label>
-                                            <input type="password" name = "password_repeat_register_colaborator" class="form-control" id="exampleInputPassword1" required>
+                                            <label class="form-label">Repetir Contraseña:</label>
+                                            <input type="password" name = "password_repeat_register_colaborator" class="form-control" required>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -583,6 +583,8 @@
                             </div>
                         </div>
                     </form>
+
+                    
                 </div>
             </div>
         </div>

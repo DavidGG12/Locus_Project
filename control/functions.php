@@ -85,7 +85,7 @@
         setcookie('user', $user, time() - 60 * 60 * 24 * 30, '/');
     }
 
-    function registerVideogames($update, $image, $title, $subtitle, $description, $version, $storage, $platform, $developer, $classification)
+    function registerVideogames($update, $image, $title, $subtitle, $description, $version, $storage, $platform, $last_platform, $developer, $classification)
     {
         $con = connection();
 
@@ -168,10 +168,10 @@
                         $result->bindParam(':platform', $platform);
                         $result->bindParam(':developer', $developer);
                         $result->bindParam(':classification', $classification);
-                        echo "<script>alert('11');</script>";
+                        // echo "<script>alert('11 $id');</script>";
                         
                         $result->execute();
-                        echo "<script>alert('12');</script>";
+                        // echo "<script>alert('12');</script>";
 
                         echo "<script>alert('Registrado con éxito')</script>";
         
@@ -188,6 +188,48 @@
                     echo "<script>alert('$e')</script>";
                 }
             }
+        }
+        else
+        {
+            $research = "SELECT ID_PLATFORM FROM platform WHERE PFNAME = '$platform'";
+            $result = $con->query($research);
+            $rows = $result -> fetch(PDO::FETCH_ASSOC);
+            $platform = $rows["ID_PLATFORM"];
+            
+            $research = "SELECT ID_PLATFORM FROM platform WHERE PFNAME = '$last_platform'";
+            $result = $con->query($research);
+            $rows = $result -> fetch(PDO::FETCH_ASSOC);
+            $last_platform = $rows["ID_PLATFORM"];
+            
+            $research = "SELECT ID_CLASSIFICATION FROM classificaton WHERE CNAME = '$classification'";
+            $result = $con->query($research);
+            $rows = $result -> fetch(PDO::FETCH_ASSOC);
+            $classification = $rows["ID_CLASSIFICATION"];
+
+            $research = "UPDATE videogames SET 
+                DESCRIPTION_GAME = :description, 
+                VERSION = :version, 
+                STORAGE_GAME = :storage,
+                PLATFORM_GAMES = :platform,
+                DEVELOPER_GAMES = :developer,
+                CLASSIFICATION_GAMES = :classification
+                    WHERE TITLE = :title AND SUBTITLE = :subtitle AND PLATFORM_GAMES = :last_platform";
+
+            $result = $con -> prepare($research);
+            
+            $result->bindParam(':title', $title);
+            $result->bindParam(':subtitle', $subtitle);
+            $result->bindParam(':description', $description);
+            $result->bindParam(':version', $version);
+            $result->bindParam(':storage', $storage);
+            $result->bindParam(':platform', $platform);
+            $result->bindParam(':last_platform', $last_platform);
+            $result->bindParam(':developer', $developer);
+            $result->bindParam(':classification', $classification);
+
+            $result->execute();
+
+            echo "<script>alert('Actualizado con éxito')</script>";
         }
     }
 

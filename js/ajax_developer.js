@@ -9,11 +9,11 @@ select_publisher.addEventListener("change", function(){
     var petition = new XMLHttpRequest();
     petition.open("GET", "control/developer_read.php?publisherID=" + publisherID);
 
-
     petition.onload = function(){
-        // console.log(publisherID);
+        console.log(publisherID);
+        console.log("Hola");
         var data = JSON.parse(petition.responseText);
-
+        console.log(data);
         data.forEach(function(data) {
             var option = document.createElement("option");
             option.value = data.ID_DEVELOPER;

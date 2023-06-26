@@ -75,7 +75,7 @@
         }
         else
         {
-            return "No session";
+            return false;
         }
     }
 
@@ -83,6 +83,65 @@
     {
         setcookie('connection', true, time() - 120, '/');
         setcookie('user', $user, time() - 60 * 60 * 24 * 30, '/');
+    }
+
+    function registerVideogames($update, $image, $title, $subtitle, $description, $version, $storage, $platform, $developer, $classification)
+    {
+        $con = connection();
+
+        $research = "SELECT COUNT(*) FROM videogames WHERE title = '$title' AND subtitle = '$subtitle' AND platform_games = $platform";
+        $result = $con->query($research);
+        $rows = $result->fetch(PDO::FETCH_ASSOC);
+        $select = $rows["COUNT(*)"];
+
+        if(!$update)
+        {
+            if($select != 0)
+            {
+                echo "<script>alert('Juego ya existente');</script>";
+            }
+            else
+            {
+                try
+                {
+                    if($_COOKIE['connection'] = false)
+                    {
+                        $contentImage = file_get_contents($image);
+                        $research = "INSERT INTO videogames (TITLE, SUBTITLE, DESCRIPTION_GAME, COVER_IMAGE, VERSION, STORAGE_GAME, PLATFORM_GAMES, DEVELOPER_GAMES, CLASSIFICATION_GAMES) 
+                            VALUES ('$title', '$subtitle', '$description', $contentImage, '$version', '$storage', $platform, $developer, $classification)";
+                        $result = $con->query($research);
+                        echo "<script>alert('Registrado con éxito')</script>";
+                    }
+                    elseif($_COOKIE['connection'] = true)
+                    {
+                        $research = "SELECT COUNT(*) FROM videogames ";
+                        $result = $con->query($research);
+                        $rows = $result -> fetch(PDO::FETCH_ASSOC);
+                        $id = $rows["COUNT(*)"];
+                        $id++;
+                        $contentImage = file_get_contents($image);
+                        $research = "INSERT INTO videogames VALUES ($id, '$title', '$subtitle', '$description', $contentImage, '$version', '$storage', $platform, $developer, $classification)";
+                        $result = $con->query($research);
+                        echo "<script>alert('Registrado con éxito')</script>";
+        
+                        // $research = "COMMIT";
+                        // $result = $con->query($research);
+                        echo "<script>alert('Registrado con éxito')</script>";
+        
+                        $con = null;
+                    }
+                    else
+                    {
+                        echo "<script>alert('Ni modo')</script>";
+                    }
+                }
+                catch(Exception $e)
+                {
+                    $e->getMessage();
+                    echo "<script>alert('$e')</script>";
+                }
+            }
+        }
     }
 
     function registerUser($last_user, $email_register, $password_register, $password_repeat, $user_register, $type, $update)
@@ -93,27 +152,27 @@
         $result = $con->query($research);
         $rows = $result->fetch(PDO::FETCH_ASSOC);
         $select = $rows["COUNT(*)"];
-
-        if($rows["COUNT(*)"] != 0)
-        {
-            echo "<script>alert('Usuario ya existente');</script>";
-        }
         
-        else if(strcasecmp($password_register, $password_repeat))
+        if(!$update)
         {
-            echo "<script>alert('Contraseñas no coinciden $user_register');</script>";
-        }
-        
-        else if(!validate_password($password_register))
-        {
-            echo "<script>alert('La contraseña tiene que tener mayúsculas, minúsculas, números y un carácter especial')</script>";
-        }
-        
-        else
-        {
-            try
+            if($rows["COUNT(*)"] != 0)
             {
-                if(!$update)
+                echo "<script>alert('Usuario ya existente $select');</script>";
+            }
+            
+            else if(strcasecmp($password_register, $password_repeat))
+            {
+                echo "<script>alert('Contraseñas no coinciden $user_register');</script>";
+            }
+            
+            else if(!validate_password($password_register))
+            {
+                echo "<script>alert('La contraseña tiene que tener mayúsculas, minúsculas, números y un carácter especial')</script>";
+            }
+            
+            else
+            {
+                try
                 {
                     if($_COOKIE['connection'] = false)
                     {
@@ -130,11 +189,11 @@
                         $id++;
                         $research = "INSERT INTO user_ VALUES ('$id', '$email_register', '$user_register', '$password_register', '$type')";
                         $result = $con->query($research);
-    
+        
                         // $research = "COMMIT";
                         // $result = $con->query($research);
                         echo "<script>alert('Registrado con éxito')</script>";
-    
+        
                         $con = null;
                     }
                     else
@@ -142,21 +201,35 @@
                         echo "<script>alert('Ni modo')</script>";
                     }
                 }
-                elseif($update)
+                catch(Exception $e)
                 {
-                    $research = "UPDATE user_ SET EMAIL = '$email_register', USER_NAME = '$user_register', PASSWORD_USER = '$password_register' WHERE USER_NAME = '$last_user'";
-                    $result = $con->query($research);
-                    echo "<script>alert('Actualizado con éxito $last_user')</script>";
-    
-                    $con = null;
+                    $e->getMessage();
+                    echo "<script>alert('$e')</script>";
                 }
             }
-            catch(Exception $e)
+        }
+        elseif($update)
+        {
+            if(strcasecmp($password_register, $password_repeat))
             {
-                $e->getMessage();
-                echo "<script>alert('$e')</script>";
+                echo "<script>alert('Contraseñas no coinciden $user_register');</script>";
+            }
+            
+            else if(!validate_password($password_register))
+            {
+                echo "<script>alert('La contraseña tiene que tener mayúsculas, minúsculas, números y un carácter especial')</script>";
+            }
+            
+            else
+            {
+                $research = "UPDATE user_ SET EMAIL = '$email_register', USER_NAME = '$user_register', PASSWORD_USER = '$password_register' WHERE USER_NAME = '$last_user'";
+                $result = $con->query($research);
+                echo "<script>alert('Actualizado con éxito $last_user')</script>";
+        
+                $con = null;
             }
         }
+
     }
 
     function deleteUser($user)

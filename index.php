@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <?php 
-  include("control/functions.php");
+  include("/control/functions.php");
 ?>
 
 <html lang="es">
@@ -153,7 +153,7 @@
       </div>
     
       <div class="col-md-4">
-        <img src="http://localhost/Locus_Project/imagenes/locus_p.png" width="100%" alt="logo locus proyect">
+        <img src="/imagenes/locus_p.png" width="100%" alt="logo locus proyect">
       </div>
 
 <!--Botón buscador-->

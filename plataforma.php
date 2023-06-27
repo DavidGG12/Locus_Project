@@ -212,7 +212,7 @@
                                   echo "<img style='height: 100px' src='data:image/jpeg;base64, " . base64_encode(stream_get_contents($row['COVER_IMAGE'])) . "' alt='Imagen'>";
                                   echo "</td>";
                                   echo "<td>";
-                                  echo "<a href='#'>".$row["TITLE"]. " " .$row["SUBTITLE"]."</a>";
+                                  echo "<a href='juego.php?title=".$row["TITLE"]."&subtitle=".$row["SUBTITLE"]."&platform=".$platform."'>".$row["TITLE"]. " " .$row["SUBTITLE"]."</a>";
                                   echo "</td>";
                                   echo "</tr>";
                                 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <?php 
-  include("C:/xampp/htdocs/Locus_Project/control/functions.php");
+  include("control/functions.php");
 ?>
 
 <html lang="es">

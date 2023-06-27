@@ -1,6 +1,12 @@
 <?php
     include("C:/xampp/htdocs/Locus_Project/control/functions.php");
     
+    if(isset($_COOKIE['user']))
+    {
+        header("Location: index.php");
+        exit;
+    }
+
     $con = connection();
     $error = '';
     
@@ -46,3 +52,5 @@
     }
     
     include('sesion.html');
+
+?>

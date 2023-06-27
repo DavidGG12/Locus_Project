@@ -82,7 +82,7 @@
                 }
                 elseif($type == 2)
                 {
-                  echo "<a class='nav-link' style='font-family: 'Oswald', sans-serif; font-size: 20px;' href=''>$user</a>";
+                  echo "<a class='nav-link' style='font-family: 'Oswald', sans-serif; font-size: 20px;' href='profile.php'>$user</a>";
                 }
               }
             ?>

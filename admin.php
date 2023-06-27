@@ -14,6 +14,29 @@
 <body>
     <?php
         include("C:/xampp/htdocs/Locus_Project/control/functions.php");
+
+        $user_login = getSession();
+
+        if(!$user_login)
+        {
+            header("Location: index.php");
+            exit;
+        }
+
+
+        $con = connection();
+        $research_type = "SELECT TYPE_USER FROM user_ WHERE USER_NAME = '$user_login'";
+        $result_type = $con -> query($research_type);
+
+        $row = $result_type -> fetch(PDO::FETCH_ASSOC);
+
+        if($row['TYPE_USER'] == 2)
+        {
+            $con = null;
+
+            header("Location: index.php");
+            exit;
+        }
     ?>
     <!---Funciones---->
     <script>
@@ -154,7 +177,7 @@
                     <li class="nav-item">
                         <!--COLOCAR EL LINK PARA EL CIERRE DE SESIÓN-->
                         <a class="nav-link" style="font-family: 'Oswald', sans-serif; font-size: 20px;"
-                            href="C:/xampp/htdocs/Locus_Project/control/destroySession.php">Cerrar sesión</a>
+                            href="control/destroySession.php">Cerrar sesión</a>
                     </li>
                 </ul>
 

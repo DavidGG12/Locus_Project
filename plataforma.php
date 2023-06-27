@@ -9,13 +9,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prueba Principal</title>
+    <title>Locus Game Proyect</title>
 
     <!--Icono pestaña-->
     <link rel="icon" type="icon" href="http://localhost/Locus_Project/imagenes/LOCUS-GAME.ico">
 
     <!--Styles-->
-    <link rel="stylesheet" href="http://localhost/Locus_Project/estilos/principal.css">
+    <link rel="stylesheet" href="http://localhost/Locus_Project/CSS/principal.css">
     <link rel="stylesheet"  href="http://localhost/Locus_Project/bootstrap/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Geologica&family=Oswald:wght@700&family=Roboto&family=Rubik+Bubbles&family=Rubik+Glitch&display=swap" rel="stylesheet">
 
@@ -46,7 +46,7 @@
 <nav class="navbar navbar-expand-md navbar-dark" style="background-color:#041721; font-size: 18px;">
   <div class="container-fluid">
     <!--icono y nombre de la página-->
-    <a class="navbar-brand" href="index.php">
+    <a class="navbar-brand" href="http://localhost/Locus_Project/index.php">
       <span class="fs-3 " style="color: #dfe6ec; font-family: 'Rubik Bubbles', cursive;"> &nbsp; Locus Proyect</span>
     </a>
 
@@ -59,12 +59,12 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto" >
         <li class="nav-item">
-          <a class="nav-link active" style="font-family: 'Oswald', sans-serif; font-size: 20px;" aria-current="page" href="index.php">Inicio</a>
+          <a class="nav-link active" style="font-family: 'Oswald', sans-serif; font-size: 20px;" aria-current="page" href="http://localhost/Locus_Project/index.php">Inicio</a>
         </li>
               
         <li class="nav-item">
           <?php if(!isset($_COOKIE['user'])): ?>
-            <a class="nav-link" style="font-family: 'Oswald', sans-serif; font-size: 20px;" href="login.php">Iniciar sesión</a>
+              <a class="nav-link" style="font-family: 'Oswald', sans-serif; font-size: 20px;" href="login.php">Iniciar sesión</a>
           <?php elseif(isset($_COOKIE['user'])): ?>
             <!--COLOCAR UN IF PARA QUE, CUANDO SEA ADMIN Y TOQUE SU NOMBRE LO DIRIJA A LA PÁGINA DE ADMIN, MIENTRAS QUE EL USUARIO NORMAL, LO DIRIJA A SU PERFIL-->
             <?php 
@@ -136,11 +136,8 @@
   </div>
   </div>
 </nav>
-
-
-<!--Clase Main-->
+<!---Opciones-->
 <main class="container min-vh-100">
-<!----Nav Opciones-->
   <div class="container bg-light-subtle m-3">
     <div class="row m-1">
       <div class="col-md-4">
@@ -151,99 +148,111 @@
           <a class="nav-link" href="plataforma.php?platform=PC">PC</a>
         </nav>
       </div>
-    
+      
       <div class="col-md-4">
         <img src="http://localhost/Locus_Project/imagenes/locus_p.png" width="100%" alt="logo locus proyect">
       </div>
 
-<!--Botón buscador-->
-<div class="col-md-4">
-        <div class="input-group mb-3">
-          <form method="POST" action="" class="d-flex">
-            <input id="search" class="form-control" type="text" name="consulta" placeholder="Buscar">
-          </form>
+      <!--Botón buscador-->
+        <div class="col-md-4">
+          <div class="input-group mb-3">
+            <form method="POST" action="" class="d-flex">
+              <input id="search" class="form-control" type="text" name="consulta" placeholder="Buscar">
+            </form>
           </div>
         </div>
       </div>
     </div>
-          </div>
-        </div>
-        <hr class="hr-dashed hr-primary">
-
-<!----Carousel---->
-<div class="i" id="contenedorPrincipal">
-  <div class="container m-3">
-    <div id="" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="http://localhost/Locus_Project/imagenes/crash1.png" class="d-block w-100" alt="">
-        </div>
     
-        <div class="carousel-item">
-          <img src="http://localhost/Locus_Project/imagenes/mario2.png" class="d-block w-100" alt="">
-        </div>
-                
-        <div class="carousel-item">
-          <img src="http://localhost/Locus_Project/imagenes/Minecraft3.jpg" class="d-block w-100" alt="">
-        </div>
-      </div>
-    </div>
-  </div>
-
-    <!--Card de Bienvenida-->
-      <div class="container m-3">
-        <div class="col-xxl-8 p-3" style="width: 100%;text-align: justify;">
-          <div class="card shadow-sm mb-2" >
-            <div class="card-header">
-              <h3 class="card-title" style="font-family: 'Oswald', sans-serif; font-size: 25px;">¡Bienvenido a Locus Proyect!</h3>
-            </div>
-        <!--Cuerpo de la card-->
-            <div class="card-body">
-              <p style="font-family: 'Geologica', sans-serif;">
-                ¿No es un miembro? Nos encantaría que te unas a nuestra comunidad. LocusProyect crea un seguimiento de sus videojuegos favoritos, o incluso aquellos que no fueron de su gusto.
-                ¿Entonces, qué esperas? ¡El registro es gratuito y solo toma unos segundos! Si te encantan los videojuegos y mantener las cosas organizadas, ¡únete a nuestra comunidad! 
-                <br>
-                ¡Haz clic en "Iniciar sesión" en la esquina superior derecha para registrarte!
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      </div>
-
+    <hr class="hr-dashed hr-primary">
 
     <!--Contenedor de la lista de juegos-->
-      <div class="container">
-        <div class="row">
-          <div class="col-md-3"></div>
-            <div class="col-md-6">
-              <!-- Tabla de busqueda -->    
-                <div id="output"></div>
-            </div>
-          <div class="col-md-3"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3"></div>
+          <div class="col-md-6">
+          <!-- Tabla de juegos-->    
+          <div id="output"></div>
         </div>
-      </div>
+        <div class="col-md-3"></div></div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Imagen</th>
+                                    <th>Juego</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              <?php
+                                $con = connection();
+                                
+                                $platform = $_GET['platform'];
+                                // echo $platform;
+                                $query_id = "SELECT ID_PLATFORM FROM platform WHERE PFNAME = '$platform'";
+                                $result_id = $con->query($query_id);
+                                $row_id = $result_id->fetchAll(PDO::FETCH_ASSOC);
+
+                                $platform = $row_id[0]["ID_PLATFORM"];
+
+                                $query = "SELECT TITLE, SUBTITLE, COVER_IMAGE FROM videogames WHERE PLATFORM_GAMES = $platform";
+                                $result = $con->query($query);
+                                $rows = $result->fetchAll(PDO::FETCH_ASSOC);
+
+                                foreach($rows as $row)
+                                {
+                                  echo "<tr>";
+                                  echo "<td rowspan='2'>";
+                                  echo "<img style='height: 100px' src='data:image/jpeg;base64, " . base64_encode(stream_get_contents($row['COVER_IMAGE'])) . "' alt='Imagen'>";
+                                  echo "</td>";
+                                  echo "<td>";
+                                  echo "<a href='#'>".$row["TITLE"]. " " .$row["SUBTITLE"]."</a>";
+                                  echo "</td>";
+                                  echo "</tr>";
+                                }
+                              ?>
+                                <!-- <tr>
+                                    <td rowspan="2">
+                                        <img style="height: 100px" src="data:image/jpeg;base64, [BASE64_ENCODED_IMAGE]" alt="Imagen">
+                                    </td>
+                                    <td>
+                                        <a href="#">Título del juego</a>
+                                        <br>
+                                        <p>Subtítulo del juego</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                 
+                                </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </main>
 
 
-
-
-      
-      <!--Footer-->
-      <footer class="text-center text-lg-start" style="background-color: #041721">
+    <!--Footer--->
+    <footer class="text-center text-lg-start" style="background-color: #041721">
         <!-- Copyright -->
         <div class="text-center p-3" style="color: #ffffff; ">
           © 2023 Copyright:
           <a class="text-light"  href="#">LocusProyect.com</a>
         </div>
-        <!-- Copyright -->
       </footer>
 
       <!--Scripts-->
+    <script src="http://localhost/Locus_Project/bootstrap/js/bootstrap.min.js"></script>      
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
 
-      
-      <script src="/bootstrap/js/bootstrap.min.js"></script>
-      <script src="http://localhost/Locus_Project/js/jquery-3.7.0.min.js"></script>
-</body>
+    </body>
 </html>

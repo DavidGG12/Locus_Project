@@ -1,4 +1,6 @@
 <?php
+    global $oracle;
+    $oracle = false;
     function connection()
     {
         try
@@ -17,6 +19,7 @@
             $username = 'C##dokx';
             $password = 'show16ME890';
             //setcookie('connection', true, time() + 120, '/', '', true, true);
+            $oracle = true;
             return $con = new PDO("oci:dbname=".$tns, $username, $password);
         }
         catch(Exception $e)
@@ -27,7 +30,8 @@
             $database = "b6rzpd5jmxzxv6hux5yf";
             //COLOCAR UN IF PARA MANDAR A OTRA PÁGINA DE ERROR POR SI NO CONCETA CON LA BASE DE DATOS
             //setcookie('connection', true, time() + 120, '/', '', true, true);
-
+            
+            $oracle = false;
             return $con = new PDO("mysql:host=$servername;dbname=$database", $user, $password);
         }
     } 
@@ -104,33 +108,9 @@
             {
                 try
                 {
-                    if($_COOKIE['connection'] = false)
+                    if($oracle = false)
                     {
-                        $file = fopen($image, 'rb');
-
-                        $contentImage = file_get_contents($image);
-                        $research = "INSERT INTO videogames (TITLE, SUBTITLE, DESCRIPTION_GAME, COVER_IMAGE, VERSION, STORAGE_GAME, PLATFORM_GAMES, DEVELOPER_GAMES, CLASSIFICATION_GAMES) 
-                            VALUES (:title, :subtitle, :description, :cover, :version, :storage, :platform, :developer, :classification)";
-                        $result = $con->prepare($research);
-                        $image_content = fread($file, filesize($image));
-
-                        $result->bindParam(':title', $title);
-                        $result->bindParam(':subtitle', $subtitle);
-                        $result->bindParam(':description', $description);
-                        $result->bindParam(':cover', $image_content, PDO::PARAM_LOB); // Vincular el BLOB al marcador de posición
-                        $result->bindParam(':version', $version);
-                        $result->bindParam(':storage', $storage);
-                        $result->bindParam(':platform', $platform);
-                        $result->bindParam(':developer', $developer);
-                        $result->bindParam(':classification', $classification);
-
-                        $result->execute();
-                        fclose($file);
-
-                        echo "<script>alert('Registrado con éxito')</script>";
-                    }
-                    elseif($_COOKIE['connection'] = true)
-                    {
+                        echo "<script>alert('oracle');</script>";
                         $research = "SELECT COUNT(*) FROM videogames ";
                         $result = $con->query($research);
                         $rows = $result -> fetch(PDO::FETCH_ASSOC);
@@ -176,6 +156,53 @@
                         echo "<script>alert('Registrado con éxito')</script>";
         
                         $con = null;
+                    }
+                    elseif($oracle = true)
+                    {
+                        try
+                        {
+                            $research = "SELECT ID_PLATFORM FROM platform WHERE PFNAME = '$platform'";
+                            $result = $con->query($research);
+                            $rows = $result -> fetch(PDO::FETCH_ASSOC);
+                            $platform = $rows["ID_PLATFORM"];
+                            
+                            
+                            $research = "SELECT ID_CLASSIFICATION FROM classificaton WHERE CNAME = '$classification'";
+                            $result = $con->query($research);
+                            $rows = $result -> fetch(PDO::FETCH_ASSOC);
+                            $classification = $rows["ID_CLASSIFICATION"];
+                            
+                            $file = fopen($image, 'rb');
+                            $contentImage = file_get_contents($image);
+    
+                            $research = "INSERT INTO videogames (TITLE, SUBTITLE, DESCRIPTION_GAME, COVER_IMAGE, VERSION, STORAGE_GAME, PLATFORM_GAMES, DEVELOPER_GAMES, CLASSIFICATION_GAMES) 
+                                VALUES (:title, :subtitle, :description, :cover, :version, :storage, :platform, :developer, :classification)";
+    
+                            $result = $con->prepare($research);
+                            $image_content = fread($file, filesize($image));
+    
+                            $result->bindParam(':title', $title);
+                            $result->bindParam(':subtitle', $subtitle);
+                            $result->bindParam(':description', $description);
+                            $result->bindParam(':cover', $image_content, PDO::PARAM_LOB); // Vincular el BLOB al marcador de posición
+                            $result->bindParam(':version', $version);
+                            $result->bindParam(':storage', $storage);
+                            $result->bindParam(':platform', $platform);
+                            $result->bindParam(':developer', $developer);
+                            $result->bindParam(':classification', $classification);
+    
+                            $result->execute();
+                            fclose($file);
+    
+                            echo "<script>alert('Registrado con éxito')</script>";
+
+                        }
+                        catch(PDOException $e)
+                        {
+                            $error = $e->getMessage();
+                            echo "<script>alert('$error');</script>";
+                        }
+                        
                     }
                     else
                     {
@@ -280,13 +307,13 @@
             {
                 try
                 {
-                    if($_COOKIE['connection'] = false)
+                    if($oracle = true)
                     {
                         $research = "INSERT INTO user_ (email, user_name, password_user, type_user) VALUES ('$email_register', '$user_register', '$password_register', '$type')";
                         $result = $con->query($research);
                         echo "<script>alert('Registrado con éxito')</script>";
                     }
-                    elseif($_COOKIE['connection'] = true)
+                    elseif($oracle = false)
                     {
                         $research = "SELECT COUNT(*) FROM user_ ";
                         $result = $con->query($research);

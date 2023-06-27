@@ -176,15 +176,15 @@
     <div id="" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img src="http://localhost/Locus_Project/imagenes/crash1.png" class="d-block w-100" alt="">
+          <img src="/imagenes/crash1.png" class="d-block w-100" alt="">
         </div>
     
         <div class="carousel-item">
-          <img src="http://localhost/Locus_Project/imagenes/mario2.png" class="d-block w-100" alt="">
+          <img src="/imagenes/mario2.png" class="d-block w-100" alt="">
         </div>
                 
         <div class="carousel-item">
-          <img src="http://localhost/Locus_Project/imagenes/Minecraft3.jpg" class="d-block w-100" alt="">
+          <img src="/imagenes/Minecraft3.jpg" class="d-block w-100" alt="">
         </div>
       </div>
     </div>
@@ -244,6 +244,6 @@
 
       
       <script src="/bootstrap/js/bootstrap.min.js"></script>
-      <script src="http://localhost/Locus_Project/js/jquery-3.7.0.min.js"></script>
+      <script src="/js/jquery-3.7.0.min.js"></script>
 </body>
 </html>

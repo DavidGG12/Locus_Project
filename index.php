@@ -12,11 +12,11 @@
     <title>Prueba Principal</title>
 
     <!--Icono pestaña-->
-    <link rel="icon" type="icon" href="http://localhost/Locus_Project/imagenes/LOCUS-GAME.ico">
+    <link rel="icon" type="icon" href="/imagenes/LOCUS-GAME.ico">
 
     <!--Styles-->
-    <link rel="stylesheet" href="http://localhost/Locus_Project/estilos/principal.css">
-    <link rel="stylesheet"  href="http://localhost/Locus_Project/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/estilos/principal.css">
+    <link rel="stylesheet"  href="/bootstrap/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Geologica&family=Oswald:wght@700&family=Roboto&family=Rubik+Bubbles&family=Rubik+Glitch&display=swap" rel="stylesheet">
 
     <!--AJAX-->

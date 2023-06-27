@@ -7,13 +7,13 @@
     <title>Administrador</title>
 
     <!--Estilos Bootstrap y Google Fonts-->
-    <link rel="stylesheet" href="/Locus_Project/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Geologica&family=Oswald:wght@700&family=Roboto&family=Rubik+Puddles&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <?php
-        include("C:/xampp/htdocs/Locus_Project/control/functions.php");
+        include("/control/functions.php");
 
         $user_login = getSession();
 

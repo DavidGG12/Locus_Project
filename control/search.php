@@ -26,7 +26,7 @@
 
          foreach ($rows as $row) {
             echo '<tr>';
-            echo "<td align='center' rowspan='2'><img style='height: 100px' src='data:image/jpg;base64," . base64_encode(stream_get_contents($row['COVER_IMAGE'])) . "' alt='Imagen'></td>";
+            echo "<td align='center' rowspan='2'><img style='height: 100px' src='data:image/jpg;base64," . base64_encode(  ($row['COVER_IMAGE'])) . "' alt='Imagen'></td>";
             echo '<td><a href="juego.php?title='. $row['TITLE'] .'&subtitle='. $row['SUBTITLE'] .'&platform='. $row['PLATFORM_GAMES'] .'">' . $row['TITLE'] . " " . $row['SUBTITLE'] . '</a></td>';
             echo '</tr>';
          }

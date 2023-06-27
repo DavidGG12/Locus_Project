@@ -134,7 +134,7 @@
 
                     // $query_platform = "SELECT PFNAME "
 
-                    $query = "SELECT TITLE, SUBTITLE, DESCRIPTION_GAME, PFNAME FROM list_games
+                    $query = "SELECT TITLE, SUBTITLE, COVER_IMAGE, DESCRIPTION_GAME, PFNAME FROM list_games
                       INNER JOIN videogames ON list_games.GAMES_LIST = videogames.ID_GAME
                       INNER JOIN platform on videogames.PLATFORM_GAMES = platform.ID_PLATFORM
                         WHERE USER_LIST = ". $row_id[0]['ID_USER'];
@@ -146,7 +146,7 @@
                     {
                         echo "<tr>";
                         echo "<td>" . $i . "</td>";
-                        echo "<td>" . $row[''] . "</td>";
+                        echo "<td><img src='data:image/jpg;base64," . base64_encode(($row['COVER_IMAGE'])) . "' height='120' width='100'></td>";
                         echo "<td>" . $row['TITLE'] . "</td>";
                         echo "<td>" . $row['SUBTITLE'] . "</td>";
                         echo "<td>" . $row['DESCRIPTION_GAME'] . "</td>";
@@ -197,10 +197,10 @@
 
                     // $query_platform = "SELECT PFNAME "
 
-                    $query = "SELECT TITLE, SUBTITLE, DESCRIPTION_GAME, PFNAME FROM list_games
+                    $query = "SELECT TITLE, SUBTITLE, COVER_IMAGE, DESCRIPTION_GAME, PFNAME FROM list_games
                       INNER JOIN videogames ON list_games.GAMES_LIST = videogames.ID_GAME
                       INNER JOIN platform on videogames.PLATFORM_GAMES = platform.ID_PLATFORM
-                        WHERE USER_LIST = ". $row_id[0]['ID_USER'] . "AND ESTATUS = 'TERMINADO'";
+                        WHERE USER_LIST = ". $row_id[0]['ID_USER'] . " AND ESTATUS = 'TERMINADO'";
                     $result = $conexion ->query($query);
                     $rows = $result->fetchAll(PDO::FETCH_ASSOC);
 
@@ -209,7 +209,7 @@
                     {
                         echo "<tr>";
                         echo "<td>" . $i . "</td>";
-                        echo "<td>" . $row[''] . "</td>";
+                        echo "<td><img src='data:image/jpg;base64," . base64_encode(($row['COVER_IMAGE'])) . "' height='120' width='100'></td>";
                         echo "<td>" . $row['TITLE'] . "</td>";
                         echo "<td>" . $row['SUBTITLE'] . "</td>";
                         echo "<td>" . $row['DESCRIPTION_GAME'] . "</td>";
@@ -260,10 +260,10 @@
 
                     // $query_platform = "SELECT PFNAME "
 
-                    $query = "SELECT TITLE, SUBTITLE, DESCRIPTION_GAME, PFNAME FROM list_games
+                    $query = "SELECT TITLE, SUBTITLE, COVER_IMAGE, DESCRIPTION_GAME, PFNAME FROM list_games
                       INNER JOIN videogames ON list_games.GAMES_LIST = videogames.ID_GAME
                       INNER JOIN platform on videogames.PLATFORM_GAMES = platform.ID_PLATFORM
-                        WHERE USER_LIST = ". $row_id[0]['ID_USER'] . "AND ESTATUS = 'PAUSA'";
+                        WHERE USER_LIST = ". $row_id[0]['ID_USER'] . " AND ESTATUS = 'PAUSA'";
                     $result = $conexion ->query($query);
                     $rows = $result->fetchAll(PDO::FETCH_ASSOC);
 
@@ -272,7 +272,7 @@
                     {
                         echo "<tr>";
                         echo "<td>" . $i . "</td>";
-                        echo "<td>" . $row[''] . "</td>";
+                        echo "<td><img src='data:image/jpg;base64," . base64_encode(($row['COVER_IMAGE'])) . "' height='120' width='100'></td>";
                         echo "<td>" . $row['TITLE'] . "</td>";
                         echo "<td>" . $row['SUBTITLE'] . "</td>";
                         echo "<td>" . $row['DESCRIPTION_GAME'] . "</td>";
@@ -324,10 +324,10 @@
 
                     // $query_platform = "SELECT PFNAME "
 
-                    $query = "SELECT TITLE, SUBTITLE, DESCRIPTION_GAME, PFNAME FROM list_games
+                    $query = "SELECT TITLE, SUBTITLE, COVER_IMAGE, DESCRIPTION_GAME, PFNAME FROM list_games
                       INNER JOIN videogames ON list_games.GAMES_LIST = videogames.ID_GAME
                       INNER JOIN platform on videogames.PLATFORM_GAMES = platform.ID_PLATFORM
-                        WHERE USER_LIST = ". $row_id[0]['ID_USER'] . "AND ESTATUS = 'ABANDONADO'";
+                        WHERE USER_LIST = ". $row_id[0]['ID_USER'] . " AND ESTATUS = 'ABANDONADO'";
                     $result = $conexion ->query($query);
                     $rows = $result->fetchAll(PDO::FETCH_ASSOC);
 

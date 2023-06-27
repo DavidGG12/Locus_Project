@@ -201,7 +201,7 @@
                 echo "</select>";
                 echo "</td>";
                 echo "<td> <button type='submit' name='btnUpdate_list' class='btn btn-primary'>Actualizar</button></td>";
-                echo "<td> <button type='submit' name='btnEliminar_list' class='btn btn-danger'>Eliminar</button></td>";
+                echo "<td> <button type='submit' name='btnDelete_list' class='btn btn-danger'>Eliminar</button></td>";
                 echo "</form>";
                 echo "</tr>";
     

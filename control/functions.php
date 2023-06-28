@@ -5,6 +5,19 @@
     {
         try
         {
+            $servername = "b6rzpd5jmxzxv6hux5yf-mysql.services.clever-cloud.com";
+            $user = "unvt0coqmwyxy2pq";
+            $password = "dAyf3jUN2wWWJg0U8xuz";
+            $database = "b6rzpd5jmxzxv6hux5yf";
+            //COLOCAR UN IF PARA MANDAR A OTRA PÁGINA DE ERROR POR SI NO CONCETA CON LA BASE DE DATOS
+            //setcookie('connection', true, time() + 120, '/', '', true, true);
+            
+            $oracle = false;
+            return $con = new PDO("mysql:host=$servername;dbname=$database", $user, $password);
+            
+        }
+        catch(Exception $e)
+        {
             $tns = "
                 (DESCRIPTION =
                     (ADDRESS_LIST =
@@ -21,18 +34,7 @@
             //setcookie('connection', true, time() + 120, '/', '', true, true);
             $oracle = true;
             return $con = new PDO("oci:dbname=".$tns, $username, $password);
-        }
-        catch(Exception $e)
-        {
-            $servername = "b6rzpd5jmxzxv6hux5yf-mysql.services.clever-cloud.com";
-            $user = "unvt0coqmwyxy2pq";
-            $password = "dAyf3jUN2wWWJg0U8xuz";
-            $database = "b6rzpd5jmxzxv6hux5yf";
-            //COLOCAR UN IF PARA MANDAR A OTRA PÁGINA DE ERROR POR SI NO CONCETA CON LA BASE DE DATOS
-            //setcookie('connection', true, time() + 120, '/', '', true, true);
-            
-            $oracle = false;
-            return $con = new PDO("mysql:host=$servername;dbname=$database", $user, $password);
+
         }
     } 
 

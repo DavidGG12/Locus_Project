@@ -71,7 +71,22 @@
   <div class="container bg-body-secondary m-3">
 		<div class="row">
 		  <div class="col">
-        <p class="text-start m-2 fs-4" style="font-family: 'Geologica', sans-serif; color: #4d5052;" ><?php echo $session; ?></p>
+        <p class="text-start m-2 fs-4" style="font-family: 'Geologica', sans-serif; color: #4d5052;" >
+          <?php 
+            echo $session; 
+            $con = connection();
+            $user = $session;
+            
+            global $id_user;
+            $research = "SELECT ID_USER, TYPE_USER FROM user_ WHERE user_name = '$user'";
+            $result = $con -> query($research);
+            if($row = $result->fetch(PDO::FETCH_ASSOC))
+            {
+              $type = $row['TYPE_USER'];
+              $id_user = $row['ID_USER'];
+            }
+          ?>
+        </p>
 		  </div>
 		  <div class="col col-lg-2 m-2"></div>
 		</div>
@@ -134,7 +149,7 @@
 
                     // $query_platform = "SELECT PFNAME "
 
-                    $query = "SELECT TITLE, SUBTITLE, COVER_IMAGE, DESCRIPTION_GAME, PFNAME FROM list_games
+                    $query = "SELECT ID_GAME, TITLE, SUBTITLE, COVER_IMAGE, DESCRIPTION_GAME, PFNAME FROM list_games
                       INNER JOIN videogames ON list_games.GAMES_LIST = videogames.ID_GAME
                       INNER JOIN platform on videogames.PLATFORM_GAMES = platform.ID_PLATFORM
                         WHERE USER_LIST = ". $row_id[0]['ID_USER'];
@@ -151,7 +166,11 @@
                         echo "<td>" . $row['SUBTITLE'] . "</td>";
                         echo "<td>" . $row['DESCRIPTION_GAME'] . "</td>";
                         echo "<td>" . $row['PFNAME'] . "</td>";
-                        echo "<td> <a href='#' class='btn btn-danger'>Eliminar</a></td>";
+                        echo "<form action='control/juego_control.php' method='post'>";
+                        echo "<td><input type='hidden' name='id' id='title_hidden' value='" . $row["ID_GAME"] . "'></td>";
+                        echo "<td><input type='hidden' name='id_USER' id='title_hidden' value='" . $id_user . "'></td>";
+                        echo "<td> <button type = 'submit' name='btnDelete_list' class='btn btn-danger'>Eliminar</button></td>";
+                        echo "</form>";
                         echo "</tr>";
                         $i++;
                     }
@@ -197,7 +216,7 @@
 
                     // $query_platform = "SELECT PFNAME "
 
-                    $query = "SELECT TITLE, SUBTITLE, COVER_IMAGE, DESCRIPTION_GAME, PFNAME FROM list_games
+                    $query = "SELECT ID_GAME, TITLE, SUBTITLE, COVER_IMAGE, DESCRIPTION_GAME, PFNAME FROM list_games
                       INNER JOIN videogames ON list_games.GAMES_LIST = videogames.ID_GAME
                       INNER JOIN platform on videogames.PLATFORM_GAMES = platform.ID_PLATFORM
                         WHERE USER_LIST = ". $row_id[0]['ID_USER'] . " AND ESTATUS = 'TERMINADO'";
@@ -214,7 +233,11 @@
                         echo "<td>" . $row['SUBTITLE'] . "</td>";
                         echo "<td>" . $row['DESCRIPTION_GAME'] . "</td>";
                         echo "<td>" . $row['PFNAME'] . "</td>";
-                        echo "<td> <a href='#' class='btn btn-danger'>Eliminar</a></td>";
+                        echo "<form action='control/juego_control.php' method='post'>";
+                        echo "<td><input type='hidden' name='id' id='title_hidden' value='" . $row["ID_GAME"] . "'></td>";
+                        echo "<td><input type='hidden' name='id_USER' id='title_hidden' value='" . $id_user . "'></td>";
+                        echo "<td> <button type = 'submit' name='btnDelete_list' class='btn btn-danger'>Eliminar</button></td>";
+                        echo "</form>";
                         echo "</tr>";
                         $i++;
                     }
@@ -260,7 +283,7 @@
 
                     // $query_platform = "SELECT PFNAME "
 
-                    $query = "SELECT TITLE, SUBTITLE, COVER_IMAGE, DESCRIPTION_GAME, PFNAME FROM list_games
+                    $query = "SELECT ID_GAME, TITLE, SUBTITLE, COVER_IMAGE, DESCRIPTION_GAME, PFNAME FROM list_games
                       INNER JOIN videogames ON list_games.GAMES_LIST = videogames.ID_GAME
                       INNER JOIN platform on videogames.PLATFORM_GAMES = platform.ID_PLATFORM
                         WHERE USER_LIST = ". $row_id[0]['ID_USER'] . " AND ESTATUS = 'PAUSA'";
@@ -277,7 +300,11 @@
                         echo "<td>" . $row['SUBTITLE'] . "</td>";
                         echo "<td>" . $row['DESCRIPTION_GAME'] . "</td>";
                         echo "<td>" . $row['PFNAME'] . "</td>";
-                        echo "<td> <a href='#' class='btn btn-danger'>Eliminar</a></td>";
+                        echo "<form action='control/juego_control.php' method='post'>";
+                        echo "<td><input type='hidden' name='id' id='title_hidden' value='" . $row["ID_GAME"] . "'></td>";
+                        echo "<td><input type='hidden' name='id_USER' id='title_hidden' value='" . $id_user . "'></td>";
+                        echo "<td> <button type = 'submit' name='btnDelete_list' class='btn btn-danger'>Eliminar</button></td>";
+                        echo "</form>";
                         echo "</tr>";
                         $i++;
                     }
@@ -324,7 +351,7 @@
 
                     // $query_platform = "SELECT PFNAME "
 
-                    $query = "SELECT TITLE, SUBTITLE, COVER_IMAGE, DESCRIPTION_GAME, PFNAME FROM list_games
+                    $query = "SELECT ID_GAME, TITLE, SUBTITLE, COVER_IMAGE, DESCRIPTION_GAME, PFNAME FROM list_games
                       INNER JOIN videogames ON list_games.GAMES_LIST = videogames.ID_GAME
                       INNER JOIN platform on videogames.PLATFORM_GAMES = platform.ID_PLATFORM
                         WHERE USER_LIST = ". $row_id[0]['ID_USER'] . " AND ESTATUS = 'ABANDONADO'";
@@ -336,12 +363,16 @@
                     {
                         echo "<tr>";
                         echo "<td>" . $i . "</td>";
-                        echo "<td>" . $row[''] . "</td>";
+                        echo "<td><img src='data:image/jpg;base64," . base64_encode(($row['COVER_IMAGE'])) . "' height='120' width='100'></td>";
                         echo "<td>" . $row['TITLE'] . "</td>";
                         echo "<td>" . $row['SUBTITLE'] . "</td>";
                         echo "<td>" . $row['DESCRIPTION_GAME'] . "</td>";
                         echo "<td>" . $row['PFNAME'] . "</td>";
-                        echo "<td> <a href='#' class='btn btn-danger'>Eliminar</a></td>";
+                        echo "<form action='control/juego_control.php' method='post'>";
+                        echo "<td><input type='hidden' name='id' id='title_hidden' value='" . $row["ID_GAME"] . "'></td>";
+                        echo "<td><input type='hidden' name='id_USER' id='title_hidden' value='" . $id_user . "'></td>";
+                        echo "<td> <button type = 'submit' name='btnDelete_list' class='btn btn-danger'>Eliminar</button></td>";
+                        echo "</form>";
                         echo "</tr>";
                         $i++;
                     }

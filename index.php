@@ -64,7 +64,7 @@
               
         <li class="nav-item">
           <?php if(!isset($_COOKIE['user'])): ?>
-            <a class="nav-link" style="font-family: 'Oswald', sans-serif; font-size: 20px;" href="login.php">Iniciar sesión</a>
+            <a class="nav-link" style="font-family: 'Oswald', sans-serif; font-size: 20px;" href="/login.php">Iniciar sesión</a>
           <?php elseif(isset($_COOKIE['user'])): ?>
             <!--COLOCAR UN IF PARA QUE, CUANDO SEA ADMIN Y TOQUE SU NOMBRE LO DIRIJA A LA PÁGINA DE ADMIN, MIENTRAS QUE EL USUARIO NORMAL, LO DIRIJA A SU PERFIL-->
             <?php 

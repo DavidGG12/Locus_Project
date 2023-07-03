@@ -51,7 +51,7 @@ else
             // $result = $con->query($research);
             echo "<script>alert('Actualizado con éxito')</script>";
 
-            $con = null;
+            
         }
         else
         {

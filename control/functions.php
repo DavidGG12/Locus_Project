@@ -6,7 +6,7 @@
         try
         {
             $tns = "
-            (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.mx-queretaro-1.oraclecloud.com))(connect_data=(service_name=g502914b537f6ea_locuslist_high.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
+            (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.mx-queretaro-1.oraclecloud.com))(connect_data=(service_name=g502914b537f6ea_locuslist_tpurgent.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))            
             ";
 
             $username = 'DOKX';
@@ -17,15 +17,17 @@
         }
         catch(Exception $e)
         {
-            $servername = "b6rzpd5jmxzxv6hux5yf-mysql.services.clever-cloud.com";
-            $user = "unvt0coqmwyxy2pq";
-            $password = "dAyf3jUN2wWWJg0U8xuz";
-            $database = "b6rzpd5jmxzxv6hux5yf";
-            //COLOCAR UN IF PARA MANDAR A OTRA PÁGINA DE ERROR POR SI NO CONCETA CON LA BASE DE DATOS
-            //setcookie('connection', true, time() + 120, '/', '', true, true);
+            $e = $e->getMessage();
+            echo "<script>alert($e)</script>";
+            // $servername = "b6rzpd5jmxzxv6hux5yf-mysql.services.clever-cloud.com";
+            // $user = "unvt0coqmwyxy2pq";
+            // $password = "dAyf3jUN2wWWJg0U8xuz";
+            // $database = "b6rzpd5jmxzxv6hux5yf";
+            // //COLOCAR UN IF PARA MANDAR A OTRA PÁGINA DE ERROR POR SI NO CONCETA CON LA BASE DE DATOS
+            // //setcookie('connection', true, time() + 120, '/', '', true, true);
             
-            $oracle = false;
-            return $con = new PDO("mysql:host=$servername;dbname=$database", $user, $password);
+            // $oracle = false;
+            // return $con = new PDO("mysql:host=$servername;dbname=$database", $user, $password);
         }
     } 
 
@@ -148,7 +150,7 @@
 
                         echo "<script>alert('Registrado con éxito')</script>";
         
-                        $con = null;
+                        
                     }
                     elseif($oracle = true)
                     {
@@ -265,7 +267,7 @@
         $research = "DELETE FROM videogames WHERE TITLE = '$title' AND SUBTITLE = '$subtitle' AND PLATFORM_GAMES = $platform";
         $execute = $con->query($research);
 
-        $con = null;
+        
 
         echo "<script>alert('Borrado con éxito');</script>";
     }
@@ -278,6 +280,7 @@
         $result = $con->query($research);
         $rows = $result->fetch(PDO::FETCH_ASSOC);
         $select = $rows["COUNT(*)"];
+
         
         if(!$update)
         {
@@ -320,7 +323,7 @@
                         // $result = $con->query($research);
                         echo "<script>alert('Registrado con éxito')</script>";
         
-                        $con = null;
+                        
                     }
                     else
                     {
@@ -354,7 +357,7 @@
                 $result = $con->query($research);
                 echo "<script>alert('Actualizado con éxito $last_user')</script>";
         
-                $con = null;
+                
             }
         }
 
@@ -367,7 +370,7 @@
         $research = "DELETE FROM user_ WHERE USER_NAME = '$user'";
         $execute = $con->query($research);
 
-        $con = null;
+        
 
         echo "<script>alert('Borrado con éxito')</script>";
     }

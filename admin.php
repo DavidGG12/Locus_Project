@@ -32,7 +32,7 @@
 
         if($row['TYPE_USER'] == 2)
         {
-            $con = null;
+            
 
             header("Location: index.php");
             exit;

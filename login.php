@@ -30,14 +30,14 @@
             $row = $result_type -> fetch(PDO::FETCH_ASSOC);
             if($row['TYPE_USER'] == 1)
             {
-                $con = null;
+                
 
                 header("Location: admin.php");
                 exit;
             }
             else if($row['TYPE_USER'] == 2)
             {
-                $con = null;
+                
 
                 header("Location: index.php");
                 exit;
@@ -47,7 +47,7 @@
         {
             echo "Usuario no encontrado $user_login";
             
-            $con = null;
+            
         }
     }
     

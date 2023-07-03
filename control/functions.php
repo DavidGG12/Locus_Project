@@ -5,11 +5,11 @@
     {
         try
         {
-            $tns = "(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=xe)))";
+            $tns = "(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.1.30)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=xe)))";
 
 
             $username = 'C##dokx';
-            $password = 'show16ME890!';
+            $password = 'show16ME890';
             //setcookie('connection', true, time() + 120, '/', '', true, true);
             $oracle = true;
             return $con = new PDO("oci:dbname=".$tns, $username, $password);

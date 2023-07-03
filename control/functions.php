@@ -5,11 +5,10 @@
     {
         try
         {
-            $tns = "
-            (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.mx-queretaro-1.oraclecloud.com))(connect_data=(service_name=g502914b537f6ea_locuslist_tpurgent.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))            
-            ";
+            $tns = "(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=xe)))";
 
-            $username = 'DOKX';
+
+            $username = 'C##dokx';
             $password = 'show16ME890!';
             //setcookie('connection', true, time() + 120, '/', '', true, true);
             $oracle = true;
@@ -125,9 +124,8 @@
                         
                         
                         $file = file_get_contents($image);
-                        // $file = fopen($image, 'rb');
-                        // $image_content = fread($file, filesize($image));
-                        // fclose($file);
+                        $file = fopen($image, 'rb');
+                        $image_content = fread($file, filesize($image));
                         
                         $research = "INSERT INTO videogames 
                             VALUES (:id, :title, :subtitle, :description, :cover, :version, :storage, :platform, :developer, :classification)";
@@ -144,6 +142,7 @@
                         $result->bindParam(':developer', $developer);
                         $result->bindParam(':classification', $classification);
                         // echo "<script>alert('11 $id');</script>";
+                        fclose($file);
                         
                         $result->execute();
                         // echo "<script>alert('12');</script>";

@@ -5,6 +5,18 @@
     {
         try
         {
+            $tns = "
+            (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.mx-queretaro-1.oraclecloud.com))(connect_data=(service_name=g502914b537f6ea_locuslist_high.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
+            ";
+
+            $username = 'DOKX';
+            $password = 'show16ME890!';
+            //setcookie('connection', true, time() + 120, '/', '', true, true);
+            $oracle = true;
+            return $con = new PDO("oci:dbname=".$tns, $username, $password);
+        }
+        catch(Exception $e)
+        {
             $servername = "b6rzpd5jmxzxv6hux5yf-mysql.services.clever-cloud.com";
             $user = "unvt0coqmwyxy2pq";
             $password = "dAyf3jUN2wWWJg0U8xuz";
@@ -14,27 +26,6 @@
             
             $oracle = false;
             return $con = new PDO("mysql:host=$servername;dbname=$database", $user, $password);
-            
-        }
-        catch(Exception $e)
-        {
-            $tns = "
-                (DESCRIPTION =
-                    (ADDRESS_LIST =
-                        (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
-                    )
-                    (CONNECT_DATA =
-                        (SERVICE_NAME = xe)
-                    )
-                )
-            ";
-
-            $username = 'C##dokx';
-            $password = 'show16ME890';
-            //setcookie('connection', true, time() + 120, '/', '', true, true);
-            $oracle = true;
-            return $con = new PDO("oci:dbname=".$tns, $username, $password);
-
         }
     } 
 

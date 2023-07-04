@@ -156,7 +156,8 @@
                 {
                     echo "<tr>";
                     echo "<td>" . $row['ID_GAME'] . "</td>";
-                    echo "<td><img src='data:image/jpg;base64," . base64_encode(($row['COVER_IMAGE'])) . "' height='120' width='100'></td>";
+                    echo "<td>IMAGEN</td>";
+                    // echo "<td><img src='data:image/jpg;base64," . base64_encode(($row['COVER_IMAGE'])) . "' height='120' width='100'></td>";
                     echo "<td>" . $row["TITLE"] . "</td>";
                     echo "<td>" . $row["SUBTITLE"] . "</td>";
                     echo "<td>" . $row["DESCRIPTION_GAME"] . "</td>";
@@ -181,7 +182,8 @@
               {
                 echo "<tr>";
                 echo "<td>" . $i . "</td>";
-                echo "<td><img src='data:image/jpg;base64," . base64_encode(($row['COVER_IMAGE'])) . "' height='120' width='100'></td>";
+                echo "<td>IMAGEN</td>";
+                // echo "<td><img src='data:image/jpg;base64," . base64_encode(($row['COVER_IMAGE'])) . "' height='120' width='100'></td>";
                 echo "<td>" . $row["TITLE"] . "</td>";
                 echo "<td>" . $row["SUBTITLE"] . "</td>";
                 echo "<td>" . $row["DESCRIPTION_GAME"] . "</td>";

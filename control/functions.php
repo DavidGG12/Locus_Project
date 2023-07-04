@@ -5,7 +5,7 @@
     {
         try
         {
-            $tns = "(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.1.30)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=xe)))";
+            $tns = "(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=xe)))";
 
 
             $username = 'C##dokx';
@@ -39,13 +39,25 @@
         return $text;
     }
 
+    function validate_user($user)
+    {
+        $user = validate_text($user);
+        $er = '/^[a-zA-Z]{3,}/';
+
+        $user = preg_match($er, $user) ? $user : false;
+
+        return $user;
+    }
+
     function validate_email($email)
     {
+        $er = '/@(hotmail|gmail|outlook)\.com$/';
         $email = trim($email);
         $email = filter_var($email, FILTER_SANITIZE_STRING);
 
-        $email = $email ? filter_var($email, FILTER_VALIDATE_EMAIL) : false;
+        // $email = $email ? filter_var($email, FILTER_VALIDATE_EMAIL) : false;
 
+        $email = preg_match($er, $email) && $email ? filter_var($email, FILTER_VALIDATE_EMAIL) : false;
         return $email;
     }
 
@@ -102,7 +114,7 @@
             {
                 try
                 {
-                    if($oracle = false)
+                    if($oracle = true)
                     {
                         echo "<script>alert('oracle');</script>";
                         $research = "SELECT COUNT(*) FROM videogames ";
@@ -151,7 +163,7 @@
         
                         
                     }
-                    elseif($oracle = true)
+                    elseif($oracle = false)
                     {
                         try
                         {
@@ -295,20 +307,27 @@
             
             else if(!validate_password($password_register))
             {
-                echo "<script>alert('La contraseña tiene que tener mayúsculas, minúsculas, números y un carácter especial')</script>";
+                echo "<script>alert('La contraseña tiene que tener mayúsculas, minúsculas, números, un carácter especial y mínimo 8 carácteres')</script>";
             }
-            
+            else if(!validate_email($email_register))
+            {
+                echo "<script>alert('El correo no tiene una extensión válida. Tiene que ser(gmail, outlook o hotmail)')</script>";
+            }
+            else if(!validate_user($user_register))
+            {
+                echo "<script>alert('El usuario tiene que contener mínimo 3 letras al principio')</script>";
+            }
             else
             {
                 try
                 {
-                    if($oracle = true)
+                    if($oracle = false)
                     {
                         $research = "INSERT INTO user_ (email, user_name, password_user, type_user) VALUES ('$email_register', '$user_register', '$password_register', '$type')";
                         $result = $con->query($research);
                         echo "<script>alert('Registrado con éxito')</script>";
                     }
-                    elseif($oracle = false)
+                    elseif($oracle = true)
                     {
                         $research = "SELECT COUNT(*) FROM user_ ";
                         $result = $con->query($research);
